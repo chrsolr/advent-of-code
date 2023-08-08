@@ -1,7 +1,9 @@
 /**
  * Day 01
  * Instructions: https://adventofcode.com/2022/day/1
- * Answer: 69206
+ * Top #3: { one: 69206, two: 65317, three: 62877 }
+ * Part #1 Answer: 69206
+ * Part #2 Answer: 197400
  */
 import fs from 'fs'
 import readline from 'readline'
@@ -16,14 +18,7 @@ export async function partOne() {
   const filepath = path.join(__dirname, 'files/2022_day_1_input.txt')
   const lines = await readFileLineByLine(filepath)
 
-  // loop through array of strings
-  // if item is not undefined
-  // - convert to number
-  // - sum until a falsy item is found
-  // - check if sum is larger than answer variable
-  // - replace answer if it is
-  // repeat until end
-
+  const calories: number[] = []
   let answer = 0
   let holder = 0
 
@@ -33,15 +28,22 @@ export async function partOne() {
     if (line) {
       const value = Number(line)
       holder += value
-    } else {
-      answer = holder > answer ? holder : answer
-      holder = 0
+      continue
     }
 
-    // console.info({ line, holder, answer })
+    answer = holder > answer ? holder : answer
+    holder = 0
+
+    if (answer !== calories[calories.length - 1]) {
+      calories.push(answer)
+    }
   }
 
-  console.log('Answer:', answer)
+  const [one, two, three] = calories.reverse()
+
+  console.log('Top #3:', { one, two, three })
+  console.log('Part #1 Answer:', one)
+  console.log('Part #2 Answer:', one + two + three)
 }
 
 async function readFileLineByLine(filepath: string) {
