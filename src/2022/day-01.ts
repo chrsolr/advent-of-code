@@ -5,22 +5,21 @@
  * Part #1 Answer: 69206
  * Part #2 Answer: 197400
  */
-import fs from 'fs'
-import readline from 'readline'
 import path from 'path'
+import { readFileLineByLine } from '../shared/utils'
 
 const INSTRUCTIONS_LINK = 'https://adventofcode.com/2022/day/1'
 
-export async function partOne() {
+export async function dayOne2022() {
   console.info('Advent of Code: Day 1 of 2022')
   console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
 
   const filepath = path.join(__dirname, 'files/2022_day_1_input.txt')
   const lines = await readFileLineByLine(filepath)
 
-  const calories: number[] = []
   let answer = 0
   let holder = 0
+  const calories: number[] = []
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i]
@@ -44,19 +43,4 @@ export async function partOne() {
   console.log('Top #3:', { one, two, three })
   console.log('Part #1 Answer:', one)
   console.log('Part #2 Answer:', one + two + three)
-}
-
-async function readFileLineByLine(filepath: string) {
-  const fileStream = fs.createReadStream(filepath)
-  const lineReader = readline.createInterface({
-    input: fileStream,
-    crlfDelay: Infinity,
-  })
-
-  const lines = []
-  for await (const line of lineReader) {
-    lines.push(line)
-  }
-
-  return lines
 }
