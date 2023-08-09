@@ -10,8 +10,8 @@ import { readFileLineByLine } from '../shared/utils'
 
 const INSTRUCTIONS_LINK = 'https://adventofcode.com/2022/day/1'
 
-export async function dayOne2022() {
-  console.info('---------------------------------------------------')
+export async function day1_2022() {
+  console.info('***************************************************')
   console.info('Advent of Code: Day 1 of 2022')
   console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
 
