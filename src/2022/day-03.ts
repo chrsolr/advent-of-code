@@ -49,11 +49,6 @@ export async function day3_PartTwo_2022() {
   console.info('Advent of Code: Day 3 of 2022 (Part #2)')
   console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
 
-  // group every 3 lines
-  // find letter that is in each line
-  // letter = score for the group
-  // sum all groups
-
   const exampleInput = `
     vJrwpWtwJgWrhcsFMMfFFhFp
     jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
