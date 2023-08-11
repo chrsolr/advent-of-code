@@ -28,7 +28,14 @@ export async function day4_PartOne_2022() {
     .filter((v) => v)
     .map((v) => v.trim())
 
-  console.log(exampleInput)
+  // 1- get all unique numbers
+  // 2- create array of numbers length from the lowest to highest
+  // 3- convert each pair to range that contain each possible number
+  // 4- compare each array to each other with the shorter array been the first
+  // 5- Look up an algorhythm is good for this (after part 2)
+
+  const nums = getArrayOfNumbers(exampleInput)
+  func(exampleInput, nums)
 }
 
 export async function day4_PartTwo_2022() {
@@ -51,6 +58,26 @@ export async function day4_PartTwo_2022() {
   const lines = (await readFileLineByLine(filepath))
     .filter((v) => v)
     .map((v) => v.trim())
+}
 
-  console.log(exampleInput)
+function func(items: string[], range: number[]) {
+  console.log(items, range)
+
+  for (const item of items) {
+    const [first, second] = item.split(',')
+    const [fp1, fp2] = first.split('-')
+    const [sp1, sp2] = second.split('-')
+    const leftRange = range.slice(+fp1 - 1, +fp2)
+    const rightRange = range.slice(+sp1 - 1, +sp2)
+    console.log({ first, second, leftRange, rightRange })
+  }
+}
+
+function getArrayOfNumbers(arr: string[]) {
+  const nums = [...arr.join(',').replace(/-/g, ',')]
+    .filter((v) => v !== ',')
+    .map((v) => +v)
+    .sort()
+  const [, high] = [nums[0], nums[nums.length - 1]]
+  return Array.from({ length: high }, (_, i) => i + 1)
 }
