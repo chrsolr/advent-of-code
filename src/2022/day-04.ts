@@ -30,11 +30,11 @@ export async function day4_PartOne_2022() {
 
   console.info(
     'Total Example Score:',
-    getOverlaps(exampleInput, getArrayOfNumbers(exampleInput)).length,
+    getOverlapsForPartOne(exampleInput, getArrayOfNumbers(exampleInput)),
   )
   console.info(
     'Total Answer Score:',
-    getOverlaps(lines, getArrayOfNumbers(lines)).length,
+    getOverlapsForPartOne(lines, getArrayOfNumbers(lines)),
   )
 }
 
@@ -58,10 +58,19 @@ export async function day4_PartTwo_2022() {
   const lines = (await readFileLineByLine(filepath))
     .filter((v) => v)
     .map((v) => v.trim())
+
+  console.info(
+    'Total Example Score:',
+    getOverlapsForPartTwo(exampleInput, getArrayOfNumbers(exampleInput)),
+  )
+  console.info(
+    'Total Answer Score:',
+    getOverlapsForPartTwo(lines, getArrayOfNumbers(lines)),
+  )
 }
 
-function getOverlaps(items: string[], range: number[]) {
-  return items.filter((item) => {
+function getOverlapsForPartOne(items: string[], range: number[]) {
+  const overlaps = items.filter((item) => {
     const [first, second] = item.split(',')
     const [fp1, fp2] = first.split('-')
     const [sp1, sp2] = second.split('-')
@@ -75,6 +84,24 @@ function getOverlaps(items: string[], range: number[]) {
         rightRange[rightRange.length - 1] <= leftRange[leftRange.length - 1])
     )
   })
+
+  return overlaps.length
+}
+
+function getOverlapsForPartTwo(items: string[], range: number[]) {
+  const overlaps = items.filter((item) => {
+    const [first, second] = item.split(',')
+    const [fp1, fp2] = first.split('-')
+    const [sp1, sp2] = second.split('-')
+    const leftRange = range.slice(+fp1 - 1, +fp2)
+    const rightRange = range.slice(+sp1 - 1, +sp2)
+
+    return leftRange.length >= rightRange.length
+      ? leftRange.some((v) => rightRange.includes(v))
+      : rightRange.some((v) => leftRange.includes(v))
+  })
+
+  return overlaps.length
 }
 
 function getArrayOfNumbers(arr: string[]) {
