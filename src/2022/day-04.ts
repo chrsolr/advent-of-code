@@ -28,14 +28,14 @@ export async function day4_PartOne_2022() {
     .filter((v) => v)
     .map((v) => v.trim())
 
-  // 1- get all unique numbers
-  // 2- create array of numbers length from the lowest to highest
-  // 3- convert each pair to range that contain each possible number
-  // 4- compare each array to each other with the shorter array been the first
-  // 5- Look up an algorhythm is good for this (after part 2)
-
-  const nums = getArrayOfNumbers(exampleInput)
-  func(exampleInput, nums)
+  console.info(
+    'Total Example Score:',
+    getOverlaps(exampleInput, getArrayOfNumbers(exampleInput)).length,
+  )
+  console.info(
+    'Total Answer Score:',
+    getOverlaps(lines, getArrayOfNumbers(lines)).length,
+  )
 }
 
 export async function day4_PartTwo_2022() {
@@ -60,24 +60,31 @@ export async function day4_PartTwo_2022() {
     .map((v) => v.trim())
 }
 
-function func(items: string[], range: number[]) {
-  console.log(items, range)
-
-  for (const item of items) {
+function getOverlaps(items: string[], range: number[]) {
+  return items.filter((item) => {
     const [first, second] = item.split(',')
     const [fp1, fp2] = first.split('-')
     const [sp1, sp2] = second.split('-')
     const leftRange = range.slice(+fp1 - 1, +fp2)
     const rightRange = range.slice(+sp1 - 1, +sp2)
-    console.log({ first, second, leftRange, rightRange })
-  }
+
+    return (
+      (leftRange[0] >= rightRange[0] &&
+        leftRange[leftRange.length - 1] <= rightRange[rightRange.length - 1]) ||
+      (rightRange[0] >= leftRange[0] &&
+        rightRange[rightRange.length - 1] <= leftRange[leftRange.length - 1])
+    )
+  })
 }
 
 function getArrayOfNumbers(arr: string[]) {
-  const nums = [...arr.join(',').replace(/-/g, ',')]
-    .filter((v) => v !== ',')
+  const nums = arr
+    .join(',')
+    .replace(/-/g, ',')
+    .split(',')
     .map((v) => +v)
-    .sort()
-  const [, high] = [nums[0], nums[nums.length - 1]]
+    .sort((a, b) => a - b)
+  const unique = Array.from(new Set(nums))
+  const [, high] = [unique[0], unique[unique.length - 1]]
   return Array.from({ length: high }, (_, i) => i + 1)
 }
