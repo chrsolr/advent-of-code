@@ -12,7 +12,16 @@ export async function day5_PartOne_2022() {
   console.info('Advent of Code: Day 5 of 2022 (Part #1)')
   console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
 
-  const exampleInput = ``
+  const exampleInput = `
+        [D]    
+    [N] [C]    
+    [Z] [M] [P]
+    1   2   3 
+
+    move 1 from 2 to 1
+    move 3 from 1 to 3
+    move 2 from 2 to 1
+    move 1 from 1 to 2`
     .split('\n')
     .filter((v) => v)
     .map((v) => v.trim())
@@ -31,7 +40,16 @@ export async function day5_PartTwo_2022() {
   console.info('Advent of Code: Day 5 of 2022 (Part #2)')
   console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
 
-  const exampleInput = ``
+  const exampleInput = `
+        [D]    
+    [N] [C]    
+    [Z] [M] [P]
+    1   2   3 
+
+    move 1 from 2 to 1
+    move 3 from 1 to 3
+    move 2 from 2 to 1
+    move 1 from 1 to 2`
     .split('\n')
     .filter((v) => v)
     .map((v) => v.trim())
