@@ -2,6 +2,8 @@
 
 [Advent of Code](https://adventofcode.com/)
 
+[Link](https://adventofcode.com/2022/day/1)
+
 ### Running Code
 Run all available dates: `npm run dev`
 
