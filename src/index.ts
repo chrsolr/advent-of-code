@@ -9,7 +9,9 @@ const [, , challenge] = process.argv
 ;(async () => {
   try {
     if (!challenge || challenge === '2022-01') {
-      await day1_2022()
+      const [one, two] = await day1_2022()
+      console.log('Part #1 Answer:', one)
+      console.log('Part #2 Answer:', two)
     }
 
     if (!challenge || challenge === '2022-02') {

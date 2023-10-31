@@ -19,11 +19,7 @@ const upperAlphabet = Array.from({ length: 26 }, (_, i) => [
 ])
 const alphabet = [...lowerAlphabet, ...upperAlphabet] as Alphabet[]
 
-export async function day3_PartOne_2022() {
-  console.info('***************************************************')
-  console.info('Advent of Code: Day 3 of 2022 (Part #1)')
-  console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
-
+export async function runPartOne() {
   const exampleInput = `
     vJrwpWtwJgWrhcsFMMfFFhFp
     jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
@@ -40,8 +36,44 @@ export async function day3_PartOne_2022() {
     .filter((v) => v)
     .map((v) => v.trim())
 
-  console.info('Total Example Score:', calculateScoreForPartOne(exampleInput))
-  console.info('Total Answer Score:', calculateScoreForPartOne(lines))
+  return [
+    calculateScoreForPartOne(exampleInput),
+    calculateScoreForPartOne(lines),
+  ]
+}
+
+export async function runPartTwo() {
+  const exampleInput = `
+    vJrwpWtwJgWrhcsFMMfFFhFp
+    jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+    PmmdzqPrVvPwwTWBwg
+    wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+    ttgJtRGJQctTZtZT
+    CrZsJsPPZsGzwwsLwLmpwMDw`
+    .split('\n')
+    .filter((v) => v)
+    .map((v) => v.trim())
+
+  const filepath = path.join(__dirname, 'files/2022_day_3_input.txt')
+  const lines = (await readFileLineByLine(filepath))
+    .filter((v) => v)
+    .map((v) => v.trim())
+
+  return [
+    calculateScoreForPartTwo(exampleInput),
+    calculateScoreForPartTwo(lines),
+  ]
+}
+
+export async function day3_PartOne_2022() {
+  console.info('***************************************************')
+  console.info('Advent of Code: Day 3 of 2022 (Part #1)')
+  console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
+
+  const [example, answer] = await runPartOne()
+
+  console.info('Total Example Score:', example)
+  console.info('Total Answer Score:', answer)
 }
 
 export async function day3_PartTwo_2022() {
@@ -49,24 +81,10 @@ export async function day3_PartTwo_2022() {
   console.info('Advent of Code: Day 3 of 2022 (Part #2)')
   console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
 
-  const exampleInput = `
-    vJrwpWtwJgWrhcsFMMfFFhFp
-    jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
-    PmmdzqPrVvPwwTWBwg
-    wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
-    ttgJtRGJQctTZtZT
-    CrZsJsPPZsGzwwsLwLmpwMDw`
-    .split('\n')
-    .filter((v) => v)
-    .map((v) => v.trim())
+  const [example, answer] = await runPartTwo()
 
-  const filepath = path.join(__dirname, 'files/2022_day_3_input.txt')
-  const lines = (await readFileLineByLine(filepath))
-    .filter((v) => v)
-    .map((v) => v.trim())
-
-  console.info('Total Example Score:', calculateScoreForPartTwo(exampleInput))
-  console.info('Total Answer Score:', calculateScoreForPartTwo(lines))
+  console.info('Total Example Score:', example)
+  console.info('Total Answer Score:', answer)
 }
 
 function calculateScoreForPartOne(lines: string[]) {

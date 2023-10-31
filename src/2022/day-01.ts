@@ -10,11 +10,7 @@ import { readFileLineByLine } from '../shared/utils'
 
 const INSTRUCTIONS_LINK = 'https://adventofcode.com/2022/day/1'
 
-export async function day1_2022() {
-  console.info('***************************************************')
-  console.info('Advent of Code: Day 1 of 2022')
-  console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
-
+export async function run() {
   const filepath = path.join(__dirname, 'files/2022_day_1_input.txt')
   const lines = await readFileLineByLine(filepath)
 
@@ -40,8 +36,12 @@ export async function day1_2022() {
   }
 
   const [one, two, three] = calories.reverse()
+  return [one, one + two + three]
+}
 
-  console.log('Top #3:', { one, two, three })
-  console.log('Part #1 Answer:', one)
-  console.log('Part #2 Answer:', one + two + three)
+export async function day1_2022() {
+  console.info('***************************************************')
+  console.info('Advent of Code: Day 1 of 2022')
+  console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
+  return run()
 }
