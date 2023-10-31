@@ -2,11 +2,15 @@
 
 [Advent of Code](https://adventofcode.com/)
 
-[Link](https://adventofcode.com/2022/day/1)
 
-### Running Code
+#### AoC - 2015
 
-Run all available dates: `npm run dev`
+| Year | Day | Code                               | Challenge                                   | Run Script          |
+|------|-----|------------------------------------|---------------------------------------------|---------------------|
+| 2015 | 01  | [Typescript](./src/2015/day-01.ts) | [Link](https://adventofcode.com/2015/day/1) | `npm start 2015-01` |
+
+
+#### AoC - 2022
 
 | Year | Day | Code                               | Challenge                                   | Run Script          |
 |------|-----|------------------------------------|---------------------------------------------|---------------------|
