@@ -11,6 +11,10 @@ import {
   runPartOne as day_4_partone_2022,
   runPartTwo as day_4_parttwo_2022,
 } from './day-04'
+import {
+  runPartOne as day_5_partone_2022,
+  runPartTwo as day_5_parttwo_2022,
+} from './day-05'
 
 test('2022-day-01 - Combined', async () => {
   const [one, two] = await dayOne2022()
@@ -52,4 +56,16 @@ test('2022-day-04 - Part Two', async () => {
   const [example, answer] = await day_4_parttwo_2022()
   expect(example).toBe(4)
   expect(answer).toBe(867)
+})
+
+test('2022-day-05 - Part One', async () => {
+  const [example, answer] = await day_5_partone_2022()
+  expect(example).toBe('CMZ')
+  expect(answer).toBe('LBLVVTVLP')
+})
+
+test('2022-day-05 - Part Two', async () => {
+  const [example, answer] = await day_5_parttwo_2022()
+  expect(example).toBe('MCD')
+  expect(answer).toBe('TPFFBDRJD')
 })
