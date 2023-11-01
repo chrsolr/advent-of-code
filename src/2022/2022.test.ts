@@ -1,4 +1,4 @@
-import { run as dayOne2022 } from './day-01'
+import { solveChallenge as dayOne2022 } from './day-01'
 import {
   runPartOne as day_2_partone_2022,
   runPartTwo as day_2_parttwo_2022,
@@ -17,9 +17,29 @@ import {
 } from './day-05'
 
 test('2022-day-01 - Combined', async () => {
-  const [one, two] = await dayOne2022()
-  expect(one).toBe(69206)
-  expect(two).toBe(197400)
+  const exampleInput = `
+1000
+2000
+3000
+
+4000
+
+5000
+6000
+
+7000
+8000
+9000
+
+10000
+`
+    .split('\n')
+    .map(Number)
+  const { maxGroupCalories, topThreeTotalCalories } = await dayOne2022(
+    exampleInput,
+  )
+  expect(maxGroupCalories).toBe(24000)
+  expect(topThreeTotalCalories).toBe(45000)
 })
 
 test('2022-day-02 - Part One', async () => {

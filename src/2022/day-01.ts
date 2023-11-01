@@ -1,3 +1,5 @@
+import { getInputData } from '../shared/utils'
+
 /**
  * Day 01
  * Instructions: https://adventofcode.com/2022/day/1
@@ -5,43 +7,55 @@
  * Part #1 Answer: 69206
  * Part #2 Answer: 197400
  */
-import path from 'path'
-import { readFileLineByLine } from '../shared/utils'
-
 const INSTRUCTIONS_LINK = 'https://adventofcode.com/2022/day/1'
 
-export async function run() {
-  const filepath = path.join(__dirname, 'files/2022_day_1_input.txt')
-  const lines = await readFileLineByLine(filepath)
-
-  let answer = 0
-  let holder = 0
+function findMaxSum(numbers: number[]): {
+  maxGroupCalories: number
+  topThreeTotalCalories: number
+} {
   const calories: number[] = []
+  let maxSum = 0
+  let currentSum = 0
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i]
-
-    if (line) {
-      const value = Number(line)
-      holder += value
+  for (const num of numbers) {
+    if (num) {
+      currentSum = Math.max(0, currentSum + num)
       continue
     }
 
-    answer = holder > answer ? holder : answer
-    holder = 0
+    maxSum = Math.max(maxSum, currentSum)
+    calories.push(currentSum)
 
-    if (answer !== calories[calories.length - 1]) {
-      calories.push(answer)
-    }
+    currentSum = 0
   }
 
-  const [one, two, three] = calories.reverse()
-  return [one, one + two + three]
+  const [one, two, three] = calories.sort((a, b) => b - a)
+  return { maxGroupCalories: maxSum, topThreeTotalCalories: one + two + three }
+}
+
+export async function solveChallenge(numbers: number[]) {
+  const { maxGroupCalories, topThreeTotalCalories } = findMaxSum(numbers)
+
+  return {
+    maxGroupCalories,
+    topThreeTotalCalories,
+  }
+}
+
+function print(maxGroupCalories: number, topThreeTotalCalories: number) {
+  console.info('***************************************************')
+  console.info('Advent of Code: Day 1 of 2022 (Part #1 & #2)')
+  console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
+  console.info('Part #1 Answer:', maxGroupCalories)
+  console.info('Part #2 Answer:', topThreeTotalCalories)
 }
 
 export async function day1_2022() {
-  console.info('***************************************************')
-  console.info('Advent of Code: Day 1 of 2022')
-  console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
-  return run()
+  const numbers = (await getInputData('/2022/files/2022_day_1_input.txt')).map(
+    Number,
+  )
+  const { maxGroupCalories, topThreeTotalCalories } = await solveChallenge(
+    numbers,
+  )
+  print(maxGroupCalories, topThreeTotalCalories)
 }

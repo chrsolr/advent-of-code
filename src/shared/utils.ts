@@ -1,5 +1,6 @@
 import fs from 'fs'
 import readline from 'readline'
+import path from 'path'
 
 export async function readFileLineByLine(filepath: string) {
   const fileStream = fs.createReadStream(filepath)
@@ -14,4 +15,9 @@ export async function readFileLineByLine(filepath: string) {
   }
 
   return lines
+}
+
+export async function getInputData(filePath: string): Promise<string[]> {
+  const filepath = path.join(__dirname, '../', filePath)
+  return readFileLineByLine(filepath)
 }
