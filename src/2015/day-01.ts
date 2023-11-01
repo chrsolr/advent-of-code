@@ -7,15 +7,19 @@ import { readFileLineByLine } from '../shared/utils'
 
 const INSTRUCTIONS_LINK = 'https://adventofcode.com/2015/day/1'
 
-function solve(text: string, find?: number | undefined) {
+async function getInputData() {
+  const filepath = path.join(__dirname, 'files/2015_day_1_input.txt')
+  const [line] = (await readFileLineByLine(filepath)).filter((v) => v)
+  return line
+}
+
+function calculateFloor(text: string, find?: number | undefined) {
   let total = 0
   let position = 0
-  const str = text.split('')
 
-  for (let i = 0; i < str.length; i++) {
-    const value = str[i]
-    total = value === '(' ? total + 1 : total - 1
-    ++position
+  for (const value of text.split('')) {
+    total += value === '(' ? 1 : -1
+    position++
 
     if (find && total === find) {
       break
@@ -25,44 +29,41 @@ function solve(text: string, find?: number | undefined) {
   return { total, position }
 }
 
-export async function runPartOne(exampleInput = '(()(()(') {
-  const filepath = path.join(__dirname, 'files/2015_day_1_input.txt')
-  const [line] = (await readFileLineByLine(filepath)).filter((v) => v)
+export async function solvePartOne(
+  exampleInput: string,
+): Promise<{ example: number; answer: number }> {
+  const line = await getInputData()
 
-  const example = solve(exampleInput)
-  const answer = solve(line)
+  const example = calculateFloor(exampleInput)
+  const answer = calculateFloor(line)
 
-  return [example.total, answer.total]
+  return { example: example.total, answer: answer.total }
 }
 
-export async function runPartTwo(exampleInput = '()())') {
-  const filepath = path.join(__dirname, 'files/2015_day_1_input.txt')
-  const [line] = (await readFileLineByLine(filepath)).filter((v) => v)
+function printResult(example: number, answer: number, part: number): void {
+  console.info('***************************************************')
+  console.info(`Advent of Code: Day 1 of 2015 (Part #${part})`)
+  console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
+  console.info('Total Example Score:', example)
+  console.info('Total Answer Score:', answer)
+}
 
-  const example = solve(exampleInput, -1)
-  const answer = solve(line, -1)
+export async function solvePartTwo(
+  exampleInput: string,
+): Promise<{ example: number; answer: number }> {
+  const line = await getInputData()
+  const example = calculateFloor(exampleInput, -1)
+  const answer = calculateFloor(line, -1)
 
-  return [example.position, answer.position]
+  return { example: example.position, answer: answer.position }
 }
 
 export async function day1_PartOne_2015() {
-  console.info('***************************************************')
-  console.info('Advent of Code: Day 1 of 2015 (Part #1)')
-  console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
-
-  const [example, answer] = await runPartOne()
-
-  console.info('Total Example Score:', example)
-  console.info('Total Answer Score:', answer)
+  const { example, answer } = await solvePartOne('(()(()(')
+  printResult(example, answer, 1)
 }
 
 export async function day1_PartTwo_2015() {
-  console.info('---------------------------------------------------')
-  console.info('Advent of Code: Day 1 of 2015 (Part #2)')
-  console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
-
-  const [example, answer] = await runPartTwo()
-
-  console.info('Total Example Score:', example)
-  console.info('Total Answer Score:', answer)
+  const { example, answer } = await solvePartTwo('()())')
+  printResult(example, answer, 2)
 }
