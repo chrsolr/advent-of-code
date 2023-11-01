@@ -2,14 +2,13 @@
  * Day 01
  * Instructions: https://adventofcode.com/2015/day/1
  */
-import path from 'path'
-import { readFileLineByLine } from '../shared/utils'
+import { getInputData } from '../shared/utils'
 
 const INSTRUCTIONS_LINK = 'https://adventofcode.com/2015/day/1'
 
-async function getInputData() {
-  const filepath = path.join(__dirname, 'files/2015_day_1_input.txt')
-  const [line] = (await readFileLineByLine(filepath)).filter((v) => v)
+async function getData() {
+  const lines = await getInputData('2015/files/2015_day_1_input.txt')
+  const [line] = lines.filter((v) => v)
   return line
 }
 
@@ -32,7 +31,7 @@ function calculateFloor(text: string, find?: number | undefined) {
 export async function solvePartOne(
   exampleInput: string,
 ): Promise<{ example: number; answer: number }> {
-  const line = await getInputData()
+  const line = await getData()
 
   const example = calculateFloor(exampleInput)
   const answer = calculateFloor(line)
@@ -51,7 +50,7 @@ function printResult(example: number, answer: number, part: number): void {
 export async function solvePartTwo(
   exampleInput: string,
 ): Promise<{ example: number; answer: number }> {
-  const line = await getInputData()
+  const line = await getData()
   const example = calculateFloor(exampleInput, -1)
   const answer = calculateFloor(line, -1)
 
