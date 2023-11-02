@@ -2,13 +2,17 @@
  * Day 02
  * Instructions: https://adventofcode.com/2022/day/2
  */
-import path from 'path'
-import { readFileLineByLine } from '../shared/utils'
+import { getInputData } from '../shared/utils'
 
 const INSTRUCTIONS_LINK = 'https://adventofcode.com/2022/day/2'
 
 type Moves = 'win' | 'draw' | 'lose'
 type Shapes = 'A' | 'B' | 'C' | 'X' | 'Y' | 'Z'
+
+async function loadData() {
+  const lines = await getInputData('2022/files/2022_day_2_input.txt')
+  return lines.filter((v) => v).map((v) => v.trim())
+}
 
 export async function runPartOne() {
   const exampleInput = `A Y
@@ -18,11 +22,7 @@ export async function runPartOne() {
     .filter((v) => v)
     .map((v) => v.trim())
 
-  const filepath = path.join(__dirname, 'files/2022_day_2_input.txt')
-  const lines = (await readFileLineByLine(filepath))
-    .filter((v) => v)
-    .map((v) => v.trim())
-
+  const lines = await loadData()
   return [
     calculateScoreForPartOne(exampleInput),
     calculateScoreForPartOne(lines),
@@ -37,37 +37,29 @@ export async function runPartTwo() {
     .filter((v) => v)
     .map((v) => v.trim())
 
-  const filepath = path.join(__dirname, 'files/2022_day_2_input.txt')
-  const lines = (await readFileLineByLine(filepath))
-    .filter((v) => v)
-    .map((v) => v.trim())
-
+  const lines = await loadData()
   return [
     calculateScoreForPartTwo(exampleInput),
     calculateScoreForPartTwo(lines),
   ]
 }
 
-export async function day2_PartOne_2022() {
+function print(example: number, answer: number, part = 1) {
   console.info('***************************************************')
-  console.info('Advent of Code: Day 2 of 2022 (Part #1)')
+  console.info(`Advent of Code: Day 2 of 2022 (Part #${part})`)
   console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
-
-  const [example, answer] = await runPartOne()
-
   console.info('Total Example Score:', example)
   console.info('Total Answer Score:', answer)
 }
 
+export async function day2_PartOne_2022() {
+  const [example, answer] = await runPartOne()
+  print(example, answer, 1)
+}
+
 export async function day2_PartTwo_2022() {
-  console.info('---------------------------------------------------')
-  console.info('Advent of Code: Day 2 of 2022 (Part #2)')
-  console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
-
   const [example, answer] = await runPartTwo()
-
-  console.info('Total Example Score:', example)
-  console.info('Total Answer Score:', answer)
+  print(example, answer, 2)
 }
 
 function calculateScoreForPartOne(arr: string[]) {
