@@ -13,7 +13,7 @@ async function getData() {
 
 function printResult(answer: number, part: number): void {
   console.info('***************************************************')
-  console.info(`Advent of Code: Day 1 of 2015 (Part #${part})`)
+  console.info(`Advent of Code: Day 2 of 2015 (Part #${part})`)
   console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
   console.info('Total Answer Score:', answer)
 }
