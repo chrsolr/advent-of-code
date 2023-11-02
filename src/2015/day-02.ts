@@ -11,6 +11,15 @@ async function getData() {
   return lines.filter((v) => v)
 }
 
+function getDimesions(calculation: string): {
+  length: number
+  width: number
+  height: number
+} {
+  const [length, width, height] = calculation.split('x').map(Number)
+  return { length, width, height }
+}
+
 function printResult(answer: number, part: number): void {
   console.info('***************************************************')
   console.info(`Advent of Code: Day 2 of 2015 (Part #${part})`)
@@ -24,10 +33,7 @@ async function solvePartOne(data: string[]) {
   // or 2 * (6 + 12 + 8) + 6
 
   return data.reduce((memo, current) => {
-    const [l, w, h] = current.split('x')
-    const length = Number(l)
-    const width = Number(w)
-    const height = Number(h)
+    const { length, width, height } = getDimesions(current)
 
     const sideOne = length * width
     const sideTwo = width * height
@@ -44,12 +50,10 @@ async function solvePartTwo(data: string[]) {
   // example: (2x3x4 = 24) + (2+2+3+3 = 10) = 34
 
   return data.reduce((memo, current) => {
-    const [l, w, h] = current.split('x')
-    const length = Number(l)
-    const width = Number(w)
-    const height = Number(h)
+    const { length, width, height } = getDimesions(current)
 
-    const total = length * width * height + (length + length + width + width)
+    const total = length * width * height + (length * 2 + width * 2)
+
     return memo + total
   }, 0)
 }
@@ -62,6 +66,6 @@ export async function day2_PartOne_2015() {
 
 export async function day2_PartTwo_2015() {
   const lines = await getData()
-  const answer = await solvePartTwo(lines.slice(0))
+  const answer = await solvePartTwo(lines)
   printResult(answer, 2)
 }
