@@ -27,7 +27,7 @@ function printResult(answer: number, part: number): void {
   console.info('Total Answer Score:', answer)
 }
 
-async function solvePartOne(data: string[]) {
+export async function solvePartOne(data: string[]) {
   // 2*l*w + 2*w*h + 2*h*l + smallest side
   // example: (2x3x4) => 2*6 + 2*12 + 2*8 = (52 + 6) = 58
   // or 2 * (6 + 12 + 8) + 6
@@ -45,7 +45,7 @@ async function solvePartOne(data: string[]) {
   }, 0)
 }
 
-async function solvePartTwo(data: string[]) {
+export async function solvePartTwo(data: string[]) {
   return data.reduce((memo, current) => {
     const { length, width, height } = getDimensions(current)
 
