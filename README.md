@@ -2,13 +2,13 @@
 
 [Advent of Code](https://adventofcode.com/)
 
-
 #### AoC - 2015
 
 | Year | Day | Code                               | Challenge                                   | Run Script          |
 |------|-----|------------------------------------|---------------------------------------------|---------------------|
 | 2015 | 01  | [Typescript](./src/2015/day-01.ts) | [Link](https://adventofcode.com/2015/day/1) | `npm start 2015-01` |
-
+| 2015 | 02  | [Typescript](./src/2015/day-02.ts) | [Link](https://adventofcode.com/2015/day/2) | `npm start 2015-02` |
+| 2015 | 03  | [Typescript](./src/2015/day-03.ts) | [Link](https://adventofcode.com/2015/day/3) | `npm start 2015-03` |
 
 #### AoC - 2022
 
