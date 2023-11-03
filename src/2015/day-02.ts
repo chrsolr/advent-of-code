@@ -11,7 +11,7 @@ async function getData() {
   return lines.filter((v) => v)
 }
 
-function getDimesions(calculation: string): {
+function getDimensions(calculation: string): {
   length: number
   width: number
   height: number
@@ -33,7 +33,7 @@ async function solvePartOne(data: string[]) {
   // or 2 * (6 + 12 + 8) + 6
 
   return data.reduce((memo, current) => {
-    const { length, width, height } = getDimesions(current)
+    const { length, width, height } = getDimensions(current)
 
     const sideOne = length * width
     const sideTwo = width * height
@@ -46,13 +46,16 @@ async function solvePartOne(data: string[]) {
 }
 
 async function solvePartTwo(data: string[]) {
-  // (l * w * h) + (l + l + w + w)
-  // example: (2x3x4 = 24) + (2+2+3+3 = 10) = 34
-
   return data.reduce((memo, current) => {
-    const { length, width, height } = getDimesions(current)
+    const { length, width, height } = getDimensions(current)
 
-    const total = length * width * height + (length * 2 + width * 2)
+    const [shortSideOne, shortSideTwo] = [length, width, height].sort(
+      (a, b) => a - b,
+    )
+
+    const ribbon = shortSideOne * 2 + shortSideTwo * 2
+    const wrap = length * width * height
+    const total = wrap + ribbon
 
     return memo + total
   }, 0)
