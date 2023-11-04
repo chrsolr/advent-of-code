@@ -53,11 +53,11 @@ test('2015-day-04 - Part One', async () => {
   const answer_1 = day_4_2015('abcdef', '00000')
   const answer_2 = day_4_2015('pqrstuv', '00000')
 
-  expect(answer_1.count).toBe(609043)
-  expect(answer_2.count).toBe(1048970)
+  expect(answer_1).toBe(609043)
+  expect(answer_2).toBe(1048970)
 })
 
 test('2015-day-04 - Part Two', async () => {
   const answer = day_4_2015('ckczppom', '000000')
-  expect(answer.count).toBe(3938038)
+  expect(answer).toBe(3938038)
 })

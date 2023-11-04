@@ -6,11 +6,11 @@ import * as crypto from 'crypto'
  */
 const INSTRUCTIONS_LINK = 'https://adventofcode.com/2015/day/4'
 
-function printResult(hash: string, count: number, part: number): void {
+function printResult(count: number, part: number): void {
   console.info('***************************************************')
   console.info(`Advent of Code: Day 4 of 2015 (Part #${part})`)
   console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
-  console.info('Total Answer Score:', `${count} (${hash})`)
+  console.info('Total Answer Score:', count)
 }
 
 function calculateMD5Hash(input: string): string {
@@ -19,38 +19,29 @@ function calculateMD5Hash(input: string): string {
   return md5Hash.digest('hex')
 }
 
-export function solve(
-  secret: string,
-  searchText: string,
-): {
-  count: number
-  hash: string
-} {
-  let hash = ''
-  let matched = false
+export function solve(secret: string, searchTerm: string): number {
   let count = 0
 
-  while (!matched) {
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
     const key = `${secret}${count}`
     const md5 = calculateMD5Hash(key)
-    matched = md5.startsWith(searchText)
+    const matched = md5.startsWith(searchTerm)
 
     if (matched) {
-      hash = md5
-      break
+      return count
     }
 
     count++
   }
-  return { count, hash }
 }
 
 export async function day4_PartOne_2015() {
-  const { count, hash } = solve('ckczppom', '00000')
-  printResult(hash, count, 1)
+  const answer = solve('ckczppom', '00000')
+  printResult(answer, 1)
 }
 
 export async function day4_PartTwo_2015() {
-  const { count, hash } = solve('ckczppom', '000000')
-  printResult(hash, count, 1)
+  const answer = solve('ckczppom', '000000')
+  printResult(answer, 2)
 }
