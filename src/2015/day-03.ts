@@ -21,7 +21,7 @@ function printResult(answer: number, part: number): void {
 }
 
 function updateCoordinates(
-  direction: '^' | '>' | '<' | 'v',
+  direction: Direction,
   coordinates: [number, number],
 ): [number, number] {
   let [x, y] = coordinates
