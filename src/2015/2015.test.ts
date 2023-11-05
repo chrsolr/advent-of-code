@@ -12,6 +12,10 @@ import {
   solvePartTwo as day_3_parttwo_2015,
 } from './day-03'
 import { solve as day_4_2015 } from './day-04'
+import {
+  solvePartOne as day5_PartOne_2015,
+  solvePartTwo as day5_PartTwo_2015,
+} from './day-05'
 
 test('2015-day-01 - Part One', async () => {
   const { example, answer } = await day_1_partone_2015('(()(()(')
@@ -60,4 +64,27 @@ test('2015-day-04 - Part One', async () => {
 test('2015-day-04 - Part Two', async () => {
   const answer = day_4_2015('ckczppom', '000000')
   expect(answer).toBe(3938038)
+})
+
+test('2015-day-05 - Part One', async () => {
+  const example = [
+    'ugknbfddgicrmopn',
+    'aaa',
+    'jchzalrnumimnmhp',
+    'haegwjzuvuyypxyu',
+    'dvszwmarrgswjxmb',
+  ]
+  const answer = day5_PartOne_2015(example)
+  expect(answer).toBe(2)
+})
+
+test('2015-day-05 - Part Two', async () => {
+  const example = [
+    'qjhvhtzxzqqjkmpb',
+    'xxyxx',
+    'uurcxstgmygtbstg',
+    'ieodomkazucvgmuy',
+  ]
+  const answer = day5_PartTwo_2015(example)
+  expect(answer).toBe(2)
 })

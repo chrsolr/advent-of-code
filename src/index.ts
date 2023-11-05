@@ -7,6 +7,7 @@ import { day1_PartOne_2015, day1_PartTwo_2015 } from './2015/day-01'
 import { day2_PartOne_2015, day2_PartTwo_2015 } from './2015/day-02'
 import { day3_PartOne_2015, day3_PartTwo_2015 } from './2015/day-03'
 import { day4_PartOne_2015, day4_PartTwo_2015 } from './2015/day-04'
+import { day5_PartOne_2015 } from './2015/day-05'
 
 const [, , challenge] = process.argv
 
@@ -30,6 +31,10 @@ const [, , challenge] = process.argv
     if (!challenge || challenge === '2015-04') {
       await day4_PartOne_2015()
       await day4_PartTwo_2015()
+    }
+
+    if (!challenge || challenge === '2015-05') {
+      day5_PartOne_2015()
     }
 
     if (!challenge || challenge === '2022-01') {

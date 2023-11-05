@@ -10,6 +10,7 @@
 | 2015 | 02  | [Typescript](./src/2015/day-02.ts) | [Link](https://adventofcode.com/2015/day/2) | `npm start 2015-02` |
 | 2015 | 03  | [Typescript](./src/2015/day-03.ts) | [Link](https://adventofcode.com/2015/day/3) | `npm start 2015-03` |
 | 2015 | 04  | [Typescript](./src/2015/day-04.ts) | [Link](https://adventofcode.com/2015/day/4) | `npm start 2015-04` |
+| 2015 | 05  | [Typescript](./src/2015/day-05.ts) | [Link](https://adventofcode.com/2015/day/5) | `npm start 2015-05` |
 
 #### AoC - 2022
 

@@ -21,3 +21,15 @@ export async function getInputData(filePath: string): Promise<string[]> {
   const filepath = path.join(__dirname, '../', filePath)
   return readFileLineByLine(filepath)
 }
+
+export function printResult(
+  answer: number,
+  year: number,
+  day: number,
+  part: number,
+): void {
+  console.info('***************************************************')
+  console.info(`Advent of Code: Day ${day} of ${year} (Part #${part})`)
+  console.info(`Instruction @: https://adventofcode.com/${year}/day/${day}`)
+  console.info('Total Answer Score:', answer)
+}
