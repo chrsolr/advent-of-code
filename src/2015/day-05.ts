@@ -54,38 +54,80 @@ function isNicePartTwo(line: string) {
   const mapper: Record<string, boolean> = {}
   let hasFirstRequirement = false
   let hasSecondRequirement = false
-  let t = ''
-  let tt = ''
+  let doesRequirementsOverlapped = false
+  let keyOne = ''
+  let keyTwo = ''
 
   for (let i = 0; i < chars.length; i++) {
-    const current = chars[i]
-    const next = chars[i + 1]
-    const third = chars[i + 2]
-    const key = `${current}${next ? next : ''}`
+    const [first, second, third] = chars.slice(i, i + 3)
+    const firstRequirementKey = `${first}${second ? second : ''}`
+    const secondRequirementKey = `${first}${second ? second : ''}${
+      third ? third : ''
+    }`
 
-    if (current === next && next === third) {
-      break
-    }
+    mapper[firstRequirementKey] = mapper[firstRequirementKey] !== undefined
 
-    mapper[key] = mapper[key] !== undefined
-
-    if (mapper[key]) {
+    if (mapper[firstRequirementKey]) {
+      keyOne = firstRequirementKey
       hasFirstRequirement = true
-      t = key
     }
 
-    if (current !== next && current === third) {
+    if (first !== second && first === third) {
+      keyTwo = secondRequirementKey
       hasSecondRequirement = true
-      tt = `${current}${next}${third}`
     }
 
-    if (hasFirstRequirement && hasSecondRequirement) {
-      console.log({ line, t, tt })
+    if (keyOne.split('').some((v) => keyTwo.includes(v))) {
+      doesRequirementsOverlapped = true
       break
     }
   }
 
-  return hasFirstRequirement && hasSecondRequirement
+  return (
+    !doesRequirementsOverlapped && hasFirstRequirement && hasSecondRequirement
+  )
+
+  // const chars = line.split('')
+  // const mapper: Record<string, boolean> = {}
+  // let hasFirstRequirement = false
+  // let hasSecondRequirement = false
+  // let hasOverlap = false
+  // let oneKey = ''
+  // let twoKey = ''
+  //
+  // for (let i = 0; i < chars.length; i++) {
+  // const current = chars[i]
+  // const next = chars[i + 1]
+  // const third = chars[i + 2]
+  // const key = `${current}${next ? next : ''}`
+  //
+  // mapper[key] = mapper[key] !== undefined
+  //
+  // if (mapper[key]) {
+  //   oneKey = key
+  //   hasFirstRequirement = true
+  // }
+  //
+  // if (current === next && next === third) {
+  //   break
+  // }
+  //
+  // twoKey = `${current}${next}${third}`
+  // if (oneKey.split('').some((v) => twoKey.includes(v))) {
+  //   hasOverlap = true
+  //   break
+  // }
+  //
+  // if (current !== next && current === third) {
+  //   hasSecondRequirement = true
+  // }
+  //
+  // if (hasFirstRequirement && hasSecondRequirement) {
+  //   break
+  // }
+  // }
+
+  // return hasFirstRequirement && hasSecondRequirement && !hasOverlap
 }
 
 export function solvePartOne(lines: string[]) {
@@ -104,7 +146,10 @@ export function solvePartTwo(lines: string[]) {
   let count = 0
 
   for (const l of lines) {
-    if (isNicePartTwo(l)) {
+    const isNice = isNicePartTwo(l)
+
+    console.log({ l, t: isNice })
+    if (isNice) {
       count++
     }
   }
