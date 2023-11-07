@@ -50,84 +50,30 @@ function isNicePartOne(line: string) {
 }
 
 function isNicePartTwo(line: string) {
-  const chars = line.split('')
-  const mapper: Record<string, boolean> = {}
-  let hasFirstRequirement = false
-  let hasSecondRequirement = false
-  let doesRequirementsOverlapped = false
-  let keyOne = ''
-  let keyTwo = ''
+  let hasPair = false
+  for (let i = 0; i < line.length; i++) {
+    const [first, second] = line.slice(i, i + 3)
+    const key = `${first}${second ? second : ''}`
 
-  for (let i = 0; i < chars.length; i++) {
-    const [first, second, third] = chars.slice(i, i + 3)
-    const firstRequirementKey = `${first}${second ? second : ''}`
-    const secondRequirementKey = `${first}${second ? second : ''}${
-      third ? third : ''
-    }`
-
-    mapper[firstRequirementKey] = mapper[firstRequirementKey] !== undefined
-
-    if (mapper[firstRequirementKey]) {
-      keyOne = firstRequirementKey
-      hasFirstRequirement = true
-    }
-
-    if (first !== second && first === third) {
-      keyTwo = secondRequirementKey
-      hasSecondRequirement = true
-    }
-
-    if (keyOne.split('').some((v) => keyTwo.includes(v))) {
-      doesRequirementsOverlapped = true
+    if (line.indexOf(key, i + 2) !== -1) {
+      hasPair = true
       break
     }
   }
 
-  return (
-    !doesRequirementsOverlapped && hasFirstRequirement && hasSecondRequirement
-  )
+  if (!hasPair) {
+    return false
+  }
 
-  // const chars = line.split('')
-  // const mapper: Record<string, boolean> = {}
-  // let hasFirstRequirement = false
-  // let hasSecondRequirement = false
-  // let hasOverlap = false
-  // let oneKey = ''
-  // let twoKey = ''
-  //
-  // for (let i = 0; i < chars.length; i++) {
-  // const current = chars[i]
-  // const next = chars[i + 1]
-  // const third = chars[i + 2]
-  // const key = `${current}${next ? next : ''}`
-  //
-  // mapper[key] = mapper[key] !== undefined
-  //
-  // if (mapper[key]) {
-  //   oneKey = key
-  //   hasFirstRequirement = true
-  // }
-  //
-  // if (current === next && next === third) {
-  //   break
-  // }
-  //
-  // twoKey = `${current}${next}${third}`
-  // if (oneKey.split('').some((v) => twoKey.includes(v))) {
-  //   hasOverlap = true
-  //   break
-  // }
-  //
-  // if (current !== next && current === third) {
-  //   hasSecondRequirement = true
-  // }
-  //
-  // if (hasFirstRequirement && hasSecondRequirement) {
-  //   break
-  // }
-  // }
+  for (let i = 0; i < line.length; i++) {
+    const [first, , third] = line.slice(i, i + 3)
 
-  // return hasFirstRequirement && hasSecondRequirement && !hasOverlap
+    if (first === third) {
+      return true
+    }
+  }
+
+  return false
 }
 
 export function solvePartOne(lines: string[]) {
@@ -147,8 +93,6 @@ export function solvePartTwo(lines: string[]) {
 
   for (const l of lines) {
     const isNice = isNicePartTwo(l)
-
-    console.log({ l, t: isNice })
     if (isNice) {
       count++
     }
