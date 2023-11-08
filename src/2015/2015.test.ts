@@ -16,6 +16,10 @@ import {
   solvePartOne as day5_PartOne_2015,
   solvePartTwo as day5_PartTwo_2015,
 } from './day-05'
+import {
+  solvePartOne as day6_PartOne_2015,
+  solvePartTwo as day6_PartTwo_2015,
+} from './day-06'
 
 test('2015-day-01 - Part One', async () => {
   const { example, answer } = await day_1_partone_2015('(()(()(')
@@ -87,4 +91,28 @@ test('2015-day-05 - Part Two', async () => {
   ]
   const answer = day5_PartTwo_2015(example)
   expect(answer).toBe(2)
+})
+
+test('2015-day-06 - Part One', async () => {
+  const example = `
+turn on 2,1 through 2,4
+toggle 0,2 through 1,4
+turn off 1,0 through 2,3`
+    .split('\n')
+    .filter((v) => v)
+
+  const answer = day6_PartOne_2015(example, 3, 6)
+  expect(answer).toBe(5)
+})
+
+test('2015-day-06 - Part Two', async () => {
+  const example = `
+turn on 2,1 through 2,4
+toggle 0,2 through 1,4
+turn off 1,0 through 2,3`
+    .split('\n')
+    .filter((v) => v)
+
+  const answer = day6_PartTwo_2015(example, 3, 6)
+  expect(answer).toBe(11)
 })
