@@ -1,68 +1,43 @@
+import input from './files/input-day-01'
+import { printResult } from '../shared/utils'
+
 /**
  * Day 01
  * Instructions: https://adventofcode.com/2015/day/1
  */
-import { getInputData } from '../shared/utils'
 
-const INSTRUCTIONS_LINK = 'https://adventofcode.com/2015/day/1'
+const getInputData = (): string[] => input.trim().split('')
 
-async function getData() {
-  const lines = await getInputData('2015/files/2015_day_1_input.txt')
-  const [line] = lines.filter((v) => v)
-  return line
-}
+const calculateFloor = (chars: string[]): number =>
+  chars.reduce(
+    (previousValue, currentValue) =>
+      (previousValue += currentValue === '(' ? 1 : -1),
+    0,
+  )
 
-function calculateFloor(text: string, find?: number | undefined) {
-  let total = 0
-  let position = 0
-
-  for (const value of text.split('')) {
-    total += value === '(' ? 1 : -1
-    position++
-
-    if (find && total === find) {
-      break
-    }
+const calculatePosition = (
+  chars: string[],
+  total = 0,
+  position = 0,
+): number => {
+  if (chars.length === 0 || total === -1) {
+    return position
   }
 
-  return { total, position }
+  const [char] = chars
+  const currentTotal = total + (char === '(' ? 1 : -1)
+  return calculatePosition(chars.slice(1), currentTotal, position + 1)
 }
 
-export async function solvePartOne(
-  exampleInput: string,
-): Promise<{ example: number; answer: number }> {
-  const line = await getData()
+const solvePartOne = (chars: string[]): number => calculateFloor(chars)
+const solvePartTwo = (chars: string[]): number => calculatePosition(chars)
 
-  const example = calculateFloor(exampleInput)
-  const answer = calculateFloor(line)
+export default () => {
+  const inputData = getInputData()
 
-  return { example: example.total, answer: answer.total }
-}
+  const answerPartOne = solvePartOne(inputData)
+  const answerPartTwo = solvePartTwo(inputData)
 
-function printResult(example: number, answer: number, part: number): void {
-  console.info('***************************************************')
-  console.info(`Advent of Code: Day 1 of 2015 (Part #${part})`)
-  console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
-  console.info('Total Example Score:', example)
-  console.info('Total Answer Score:', answer)
-}
-
-export async function solvePartTwo(
-  exampleInput: string,
-): Promise<{ example: number; answer: number }> {
-  const line = await getData()
-  const example = calculateFloor(exampleInput, -1)
-  const answer = calculateFloor(line, -1)
-
-  return { example: example.position, answer: answer.position }
-}
-
-export async function day1_PartOne_2015() {
-  const { example, answer } = await solvePartOne('(()(()(')
-  printResult(example, answer, 1)
-}
-
-export async function day1_PartTwo_2015() {
-  const { example, answer } = await solvePartTwo('()())')
-  printResult(example, answer, 2)
+  printResult(answerPartOne, 2015, 1, 1)
+  printResult(answerPartTwo, 2015, 1, 2)
 }
