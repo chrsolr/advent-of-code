@@ -1,10 +1,10 @@
 import _2015_01 from './2015/day-01'
+import _2015_02 from './2015/day-02'
 import { day1_2022 } from './2022/day-01'
 import { day2_PartOne_2022, day2_PartTwo_2022 } from './2022/day-02'
 import { day3_PartOne_2022, day3_PartTwo_2022 } from './2022/day-03'
 import { day4_PartOne_2022, day4_PartTwo_2022 } from './2022/day-04'
 import { day5_PartOne_2022, day5_PartTwo_2022 } from './2022/day-05'
-import { day2_PartOne_2015, day2_PartTwo_2015 } from './2015/day-02'
 import { day3_PartOne_2015, day3_PartTwo_2015 } from './2015/day-03'
 import { day4_PartOne_2015, day4_PartTwo_2015 } from './2015/day-04'
 import { day5_PartOne_2015 } from './2015/day-05'
@@ -19,8 +19,7 @@ const [, , challenge] = process.argv
     }
 
     if (!challenge || challenge === '2015-02') {
-      await day2_PartOne_2015()
-      await day2_PartTwo_2015()
+      _2015_02()
     }
 
     if (!challenge || challenge === '2015-03') {
