@@ -37,17 +37,16 @@ const partTwoReducer = (memo: number, current: string): number => {
   return memo + total
 }
 
-const solvePartOne = (lines: string[]): number =>
-  lines.reduce(partOneReducer, 0)
-
-const solvePartTwo = (lines: string[]): number =>
-  lines.reduce(partTwoReducer, 0)
+const solve = (
+  lines: string[],
+  reducer: (memo: number, current: string) => number,
+): number => lines.reduce(reducer, 0)
 
 export default () => {
   const inputData = getInputData()
 
-  const answerPartOne = solvePartOne(inputData)
-  const answerPartTwo = solvePartTwo(inputData)
+  const answerPartOne = solve(inputData, partOneReducer)
+  const answerPartTwo = solve(inputData, partTwoReducer)
 
   printResult(answerPartOne, 2015, 2, 1)
   printResult(answerPartTwo, 2015, 2, 2)
