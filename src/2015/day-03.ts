@@ -1,29 +1,20 @@
+import input from './files/input-day-03'
+import { printResult } from '../shared/utils'
+
 /**
  * Day 03
  * Instructions: https://adventofcode.com/2015/day/3
  */
-import { getInputData } from '../shared/utils'
 
-const INSTRUCTIONS_LINK = 'https://adventofcode.com/2015/day/3'
+type Direction = '^' | '>' | '<' | 'v'
+type Coordinates = [number, number]
 
-export type Direction = '^' | '>' | '<' | 'v'
-
-async function getData() {
-  const [line] = await getInputData('2015/files/2015_day_3_input.txt')
-  return line
-}
-
-function printResult(answer: number, part: number): void {
-  console.info('***************************************************')
-  console.info(`Advent of Code: Day 3 of 2015 (Part #${part})`)
-  console.info(`Instruction @: ${INSTRUCTIONS_LINK}`)
-  console.info('Total Answer Score:', answer)
-}
+const getInputData = (): string => input.split('\n').filter((v) => v)[0]
 
 function updateCoordinates(
   direction: Direction,
-  coordinates: [number, number],
-): [number, number] {
+  coordinates: Coordinates,
+): Coordinates {
   let [x, y] = coordinates
 
   if (direction === '^') {
@@ -39,13 +30,11 @@ function updateCoordinates(
   return [x, y]
 }
 
-export async function solvePartOne(data: Direction[]) {
-  const coordinates: [number, number] = [0, 0]
+const solvePartOne = (directions: Direction[]): number => {
+  const set = new Set().add('0,0')
+  const coordinates: Coordinates = [0, 0]
 
-  const set = new Set()
-  set.add(coordinates.join(','))
-
-  for (const direction of data) {
+  for (const direction of directions) {
     const [x, y] = updateCoordinates(direction, coordinates)
     coordinates[0] = x
     coordinates[1] = y
@@ -55,17 +44,17 @@ export async function solvePartOne(data: Direction[]) {
   return set.size
 }
 
-export async function solvePartTwo(data: Direction[]) {
-  const santaCoordinates: [number, number] = [0, 0]
-  const robotCoordinates: [number, number] = [0, 0]
+const solvePartTwo = (directions: Direction[]): number => {
+  const santaCoordinates: Coordinates = [0, 0]
+  const robotCoordinates: Coordinates = [0, 0]
 
   const coordinates = new Set()
   coordinates.add(santaCoordinates.join(','))
   coordinates.add(robotCoordinates.join(','))
 
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < directions.length; i++) {
     const isSantaTurn = i % 2
-    const direction = data[i] as Direction
+    const direction = directions[i] as Direction
 
     if (isSantaTurn) {
       const [x, y] = updateCoordinates(direction, santaCoordinates)
@@ -83,14 +72,12 @@ export async function solvePartTwo(data: Direction[]) {
   return coordinates.size
 }
 
-export async function day3_PartOne_2015() {
-  const line = await getData()
-  const answer = await solvePartOne(line.split('') as Direction[])
-  printResult(answer, 1)
-}
+export default () => {
+  const inputData = getInputData().split('') as Direction[]
 
-export async function day3_PartTwo_2015() {
-  const line = await getData()
-  const answer = await solvePartTwo(line.split('') as Direction[])
-  printResult(answer, 2)
+  const answerPartOne = solvePartOne(inputData)
+  const answerPartTwo = solvePartTwo(inputData)
+
+  printResult(answerPartOne, 2015, 3, 1)
+  printResult(answerPartTwo, 2015, 3, 2)
 }
