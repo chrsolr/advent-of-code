@@ -6,15 +6,18 @@ import { printResult } from '../shared/utils'
  * Instructions: https://adventofcode.com/2015/day/5
  */
 
+type Vowels = 'a' | 'e' | 'i' | 'o' | 'u'
+type Exclusion = 'ab' | 'cd' | 'pq' | 'xy'
+
 const lines = input.split('\n').filter((value) => value)
-const vowels: Record<string, string> = {
+const vowels: Record<string, Vowels> = {
   a: 'a',
   e: 'e',
   i: 'i',
   o: 'o',
   u: 'u',
 }
-const exclusion: Record<string, string> = {
+const exclusion: Record<string, Exclusion> = {
   ab: 'ab',
   cd: 'cd',
   pq: 'pq',
@@ -76,35 +79,13 @@ function isNicePartTwo(line: string) {
   return false
 }
 
-export function solvePartOne(lines: string[]) {
-  let count = 0
+const solve = (lines: string[], cb: (line: string) => boolean): number =>
+  lines.reduce((memo, current) => (cb(current) ? memo + 1 : memo), 0)
 
-  for (const l of lines) {
-    if (isNicePartOne(l)) {
-      count++
-    }
-  }
+export default () => {
+  const answerPartOne = solve(lines, isNicePartOne)
+  const answerPartTwo = solve(lines, isNicePartTwo)
 
-  return count
-}
-
-export function solvePartTwo(lines: string[]) {
-  let count = 0
-
-  for (const l of lines) {
-    const isNice = isNicePartTwo(l)
-    if (isNice) {
-      count++
-    }
-  }
-
-  return count
-}
-
-export function day5_PartOne_2015() {
-  const answerOne = solvePartOne(lines)
-  printResult(answerOne, 2015, 5, 1)
-
-  const answerTwo = solvePartTwo(lines)
-  printResult(answerTwo, 2015, 5, 2)
+  printResult(answerPartOne, 2015, 5, 1)
+  printResult(answerPartTwo, 2015, 5, 2)
 }
