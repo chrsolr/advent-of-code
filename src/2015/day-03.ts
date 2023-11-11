@@ -45,24 +45,18 @@ const solvePartOne = (directions: Direction[]): number => {
 
 const solvePartTwo = (directions: Direction[]): number => {
   const set = new Set().add('0,0').add('0,0')
-  const santaCoordinates: Coordinates = [0, 0]
-  const robotCoordinates: Coordinates = [0, 0]
+  const map = new Map<'santa' | 'robot', Coordinates>()
+    .set('santa', [0, 0])
+    .set('robot', [0, 0])
 
   for (const i in directions) {
     const direction = directions[i]
-    const isSantaTurn = Number(i) % 2
+    const key = Number(i) % 2 ? 'santa' : 'robot'
 
-    if (isSantaTurn) {
-      const [x, y] = updateCoordinates(direction, santaCoordinates)
-      santaCoordinates[0] = x
-      santaCoordinates[1] = y
-      set.add(santaCoordinates.join(','))
-    } else {
-      const [x, y] = updateCoordinates(direction, robotCoordinates)
-      robotCoordinates[0] = x
-      robotCoordinates[1] = y
-      set.add(robotCoordinates.join(','))
-    }
+    const currentCoordinates = updateCoordinates(direction, map.get(key)!)
+    map.set(key, currentCoordinates)
+
+    set.add(map.get(key)?.join(','))
   }
 
   return set.size
