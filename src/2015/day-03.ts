@@ -11,33 +11,32 @@ type Coordinates = [number, number]
 
 const getInputData = (): string => input.split('\n').filter((v) => v)[0]
 
-function updateCoordinates(
+const updateCoordinates = (
   direction: Direction,
   coordinates: Coordinates,
-): Coordinates {
+): Coordinates => {
   let [x, y] = coordinates
 
-  if (direction === '^') {
-    y += 1
-  } else if (direction === '>') {
-    x += 1
-  } else if (direction === '<') {
-    x -= 1
-  } else if (direction === 'v') {
-    y -= 1
+  switch (direction) {
+    case '^':
+      return [x, (y += 1)]
+    case '>':
+      return [(x += 1), y]
+    case '<':
+      return [(x -= 1), y]
+    case 'v':
+      return [x, (y -= 1)]
+    default:
+      return [x, y]
   }
-
-  return [x, y]
 }
 
 const solvePartOne = (directions: Direction[]): number => {
   const set = new Set().add('0,0')
-  const coordinates: Coordinates = [0, 0]
+  let coordinates: Coordinates = [0, 0]
 
   for (const direction of directions) {
-    const [x, y] = updateCoordinates(direction, coordinates)
-    coordinates[0] = x
-    coordinates[1] = y
+    coordinates = updateCoordinates(direction, coordinates)
     set.add(coordinates.join(','))
   }
 
@@ -45,31 +44,28 @@ const solvePartOne = (directions: Direction[]): number => {
 }
 
 const solvePartTwo = (directions: Direction[]): number => {
+  const set = new Set().add('0,0').add('0,0')
   const santaCoordinates: Coordinates = [0, 0]
   const robotCoordinates: Coordinates = [0, 0]
 
-  const coordinates = new Set()
-  coordinates.add(santaCoordinates.join(','))
-  coordinates.add(robotCoordinates.join(','))
-
-  for (let i = 0; i < directions.length; i++) {
-    const isSantaTurn = i % 2
-    const direction = directions[i] as Direction
+  for (const i in directions) {
+    const direction = directions[i]
+    const isSantaTurn = Number(i) % 2
 
     if (isSantaTurn) {
       const [x, y] = updateCoordinates(direction, santaCoordinates)
       santaCoordinates[0] = x
       santaCoordinates[1] = y
-      coordinates.add(santaCoordinates.join(','))
+      set.add(santaCoordinates.join(','))
     } else {
       const [x, y] = updateCoordinates(direction, robotCoordinates)
       robotCoordinates[0] = x
       robotCoordinates[1] = y
-      coordinates.add(robotCoordinates.join(','))
+      set.add(robotCoordinates.join(','))
     }
   }
 
-  return coordinates.size
+  return set.size
 }
 
 export default () => {
