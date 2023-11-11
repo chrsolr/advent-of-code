@@ -46,9 +46,13 @@ function isNicePartOne(line: string): boolean {
     if (!appearsTwice) {
       appearsTwice = value === nextValue
     }
+
+    if (amountOfVowelsFound === 3 && appearsTwice) {
+      return true
+    }
   }
 
-  return amountOfVowelsFound === 3 && appearsTwice
+  return false
 }
 
 function isNicePartTwo(line: string) {
