@@ -17,6 +17,7 @@ const vowels: Record<string, Vowels> = {
   o: 'o',
   u: 'u',
 }
+
 const exclusion: Record<string, Exclusion> = {
   ab: 'ab',
   cd: 'cd',
@@ -24,11 +25,10 @@ const exclusion: Record<string, Exclusion> = {
   xy: 'xy',
 }
 
-function isNicePartOne(line: string) {
+function isNicePartOne(line: string): boolean {
   const chars = line.split('')
   let amountOfVowelsFound = 0
   let appearsTwice = false
-  let isNaughty = false
 
   for (const i in chars) {
     const index = Number(i)
@@ -36,8 +36,7 @@ function isNicePartOne(line: string) {
     const nextValue = chars[index + 1]
 
     if (exclusion[`${value}${nextValue}`]) {
-      isNaughty = true
-      break
+      return true
     }
 
     if (amountOfVowelsFound < 3 && vowels[value]) {
@@ -49,7 +48,7 @@ function isNicePartOne(line: string) {
     }
   }
 
-  return !isNaughty && amountOfVowelsFound === 3 && appearsTwice
+  return amountOfVowelsFound === 3 && appearsTwice
 }
 
 function isNicePartTwo(line: string) {
