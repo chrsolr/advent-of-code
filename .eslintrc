@@ -21,6 +21,7 @@
     "jest.config.js"
   ],
   "rules": {
+    "no-constant-condition": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
@@ -28,9 +29,9 @@
         "varsIgnorePattern": "^_",
         "caughtErrorsIgnorePattern": "^_"
       }
-    ]
+    ],
     "@typescript-eslint/no-non-null-assertion": [
-      "off",
+      "off"
     ]
    }
 }
