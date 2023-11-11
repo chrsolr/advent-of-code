@@ -36,7 +36,7 @@ function isNicePartOne(line: string): boolean {
     const nextValue = chars[index + 1]
 
     if (exclusion[`${value}${nextValue}`]) {
-      return true
+      return false
     }
 
     if (amountOfVowelsFound < 3 && vowels[value]) {
