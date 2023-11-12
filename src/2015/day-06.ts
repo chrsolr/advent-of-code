@@ -1,17 +1,18 @@
 import { printResult } from '../shared/utils'
 import input from './files/input-day-06'
 
-function createMatrix(
+const lines = input.split('\n').filter((v) => v)
+
+const createMatrix = (
   gridRowAmount: number,
   gridColAmount: number,
   value: unknown = false,
-) {
-  return Array.from(Array(gridRowAmount), () =>
+) =>
+  Array.from(Array(gridRowAmount), () =>
     Array.from(Array(gridColAmount), () => value),
   )
-}
 
-function getInstructions(line: string) {
+const getInstructions = (line: string) => {
   const instructions = line.split(' ')
   let action
   let direction
@@ -27,7 +28,7 @@ function getInstructions(line: string) {
   return { action, direction, from, to }
 }
 
-export function solvePartOne(
+function solvePartOne(
   lines: string[],
   gridRowAmount = 1000,
   gridColAmount = 1000,
@@ -68,7 +69,7 @@ export function solvePartOne(
   return count
 }
 
-export function solvePartTwo(
+function solvePartTwo(
   lines: string[],
   gridRowAmount = 1000,
   gridColAmount = 1000,
@@ -108,9 +109,7 @@ export function solvePartTwo(
   )
 }
 
-export function day6_PartOne_2015() {
-  const lines = input.split('\n').filter((v) => v)
-
+export default () => {
   const answerOne = solvePartOne(lines)
   const answerTwo = solvePartTwo(lines)
 
