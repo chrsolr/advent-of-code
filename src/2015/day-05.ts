@@ -25,7 +25,7 @@ const exclusion: Record<string, Exclusion> = {
   xy: 'xy',
 }
 
-function isNicePartOne(line: string): boolean {
+const isNicePartOne = (line: string): boolean => {
   const chars = line.split('')
   let amountOfVowelsFound = 0
   let appearsTwice = false
@@ -55,26 +55,23 @@ function isNicePartOne(line: string): boolean {
   return false
 }
 
-function isNicePartTwo(line: string) {
+const isNicePartTwo = (line: string): boolean => {
   let hasPair = false
+  let hasCharInBetweenPair = false
+
   for (let i = 0; i < line.length; i++) {
-    const [first, second] = line.slice(i, i + 3)
+    const [first, second, third] = line.slice(i, i + 3)
     const key = `${first}${second ? second : ''}`
 
     if (line.indexOf(key, i + 2) !== -1) {
       hasPair = true
-      break
     }
-  }
 
-  if (!hasPair) {
-    return false
-  }
+    if (!hasCharInBetweenPair && first === third) {
+      hasCharInBetweenPair = true
+    }
 
-  for (let i = 0; i < line.length; i++) {
-    const [first, , third] = line.slice(i, i + 3)
-
-    if (first === third) {
+    if (hasPair && hasCharInBetweenPair) {
       return true
     }
   }
