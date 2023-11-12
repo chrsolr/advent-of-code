@@ -25,7 +25,7 @@ const exclusion: Record<string, Exclusion> = {
   xy: 'xy',
 }
 
-const isNicePartOne = (line: string): boolean => {
+const partOneSolver = (line: string): boolean => {
   const chars = line.split('')
   let amountOfVowelsFound = 0
   let appearsTwice = false
@@ -55,7 +55,7 @@ const isNicePartOne = (line: string): boolean => {
   return false
 }
 
-const isNicePartTwo = (line: string): boolean => {
+const partTwoSolver = (line: string): boolean => {
   let hasPair = false
   let hasCharInBetweenPair = false
 
@@ -79,12 +79,12 @@ const isNicePartTwo = (line: string): boolean => {
   return false
 }
 
-const solve = (lines: string[], cb: (line: string) => boolean): number =>
-  lines.reduce((memo, current) => (cb(current) ? memo + 1 : memo), 0)
+const solve = (lines: string[], solver: (line: string) => boolean): number =>
+  lines.reduce((memo, current) => (solver(current) ? memo + 1 : memo), 0)
 
 export default () => {
-  const answerPartOne = solve(lines, isNicePartOne)
-  const answerPartTwo = solve(lines, isNicePartTwo)
+  const answerPartOne = solve(lines, partOneSolver)
+  const answerPartTwo = solve(lines, partTwoSolver)
 
   printResult(answerPartOne, 2015, 5, 1)
   printResult(answerPartTwo, 2015, 5, 2)
