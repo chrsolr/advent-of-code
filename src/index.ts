@@ -5,7 +5,7 @@ import _2015_04 from './2015/day-04'
 import _2015_05 from './2015/day-05'
 import _2015_06 from './2015/day-06'
 
-import { day1_2022 } from './2022/day-01'
+import _2022_01 from './2022/day-01'
 import { day2_PartOne_2022, day2_PartTwo_2022 } from './2022/day-02'
 import { day3_PartOne_2022, day3_PartTwo_2022 } from './2022/day-03'
 import { day4_PartOne_2022, day4_PartTwo_2022 } from './2022/day-04'
@@ -21,6 +21,7 @@ const [, , challenge] = process.argv
     .set('2015-04', _2015_04)
     .set('2015-05', _2015_05)
     .set('2015-06', _2015_06)
+    .set('2022-01', _2022_01)
 
   if (!challenge) {
     // TODO: run all
@@ -29,10 +30,6 @@ const [, , challenge] = process.argv
 
   if (map.has(challenge)) {
     map.get(challenge)!()
-  }
-
-  if (!challenge || challenge === '2022-01') {
-    await day1_2022()
   }
 
   if (!challenge || challenge === '2022-02') {
