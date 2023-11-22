@@ -23,7 +23,7 @@ export async function getInputData(filePath: string): Promise<string[]> {
 }
 
 export function printResult(
-  answer: number,
+  answer: number | string,
   year: number,
   day: number,
   part: number,
