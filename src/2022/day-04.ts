@@ -50,6 +50,6 @@ export default () => {
   const answerPartOne = solvePartOne(lines, getArrayOfNumbers(lines))
   const answerPartTwo = solvePartTwo(lines, getArrayOfNumbers(lines))
 
-  printResult(answerPartOne, 2022, 3, 1)
-  printResult(answerPartTwo, 2022, 3, 2)
+  printResult(answerPartOne, 2022, 4, 1)
+  printResult(answerPartTwo, 2022, 4, 2)
 }
