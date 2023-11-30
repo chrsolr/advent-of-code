@@ -2,6 +2,9 @@ import fs from 'fs'
 import readline from 'readline'
 import path from 'path'
 
+/**
+ * @deprecated (Remove after 2022 is fully migrated to esm modules)
+ */
 export async function readFileLineByLine(filepath: string) {
   const fileStream = fs.createReadStream(filepath)
   const lineReader = readline.createInterface({
