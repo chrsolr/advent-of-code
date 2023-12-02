@@ -11,6 +11,8 @@ import _2022_03 from './2022/day-03'
 import _2022_04 from './2022/day-04'
 import _2022_05 from './2022/day-05'
 
+import _2023_01 from './2023/day-01'
+
 const [, , challenge] = process.argv
 
 ;(async () => {
@@ -26,6 +28,7 @@ const [, , challenge] = process.argv
     .set('2022-03', _2022_03)
     .set('2022-04', _2022_04)
     .set('2022-05', _2022_05)
+    .set('2023-01', _2023_01)
 
   if (!challenge) {
     // TODO: run all
