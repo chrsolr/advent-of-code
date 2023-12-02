@@ -19,18 +19,15 @@ const partOneReducer = (memo: number, line: string) => {
   const numbers = []
 
   for (let i = 0; i <= line.length; i++) {
-    const current = line[i]
-
-    if (!isNaN(Number(current))) {
-      numbers.push(current)
-      continue
+    if (!isNaN(Number(line[i]))) {
+      numbers[numbers.length ? 1 : 0] = line[i]
     }
   }
 
-  const [firstNumber] = numbers
-  const secondNumber = numbers[numbers.length - 1]
+  const firstNumber = numbers[0]
+  const lastNumber = numbers[numbers.length - 1]
 
-  return memo + Number(`${firstNumber}${secondNumber}`)
+  return memo + Number(`${firstNumber}${lastNumber}`)
 }
 
 const partTwoReducer = (memo: number, line: string) => {
