@@ -1,26 +1,53 @@
-import input, { example } from './files/input-day-01'
+import input from './files/input-day-01'
 import { printResult } from '../shared/utils'
 
-const getInputData = (): string[] => /* example ||  */ input.split('\n')
+const getInputData = (): string[] => input.split('\n')
 
-const map = new Map<string, number>([
-  ['one', 1],
-  ['two', 2],
-  ['three', 3],
-  ['four', 4],
-  ['five', 5],
-  ['six', 6],
-  ['seven', 7],
-  ['eight', 8],
-  ['nine', 9],
-])
+const keywords = [
+  'one',
+  'two',
+  'three',
+  'four',
+  'five',
+  'six',
+  'seven',
+  'eight',
+  'nine',
+]
+
+const recursive = (
+  previousChar: string,
+  chars: string[] = [],
+  memo: string[] = [],
+): string[] => {
+  if (chars.length === 0) {
+    return memo
+  }
+
+  const currentChar = chars.shift() ?? ''
+
+  if (!isNaN(Number(currentChar))) {
+    memo.push(currentChar)
+    return recursive(currentChar, chars, memo)
+  }
+
+  const combinedChars = `${previousChar}${currentChar}`
+  const keywordIndex = keywords.findIndex((key) => combinedChars.includes(key))
+
+  if (keywordIndex > -1) {
+    memo.push((keywordIndex + 1).toString())
+    return recursive(currentChar, chars, memo)
+  }
+
+  return recursive(combinedChars, chars, memo)
+}
 
 const partOneReducer = (memo: number, line: string) => {
   const numbers = []
 
-  for (let i = 0; i <= line.length; i++) {
-    if (!isNaN(Number(line[i]))) {
-      numbers[numbers.length ? 1 : 0] = line[i]
+  for (const char of line) {
+    if (!isNaN(Number(char))) {
+      numbers[numbers.length ? 1 : 0] = char
     }
   }
 
@@ -31,20 +58,24 @@ const partOneReducer = (memo: number, line: string) => {
 }
 
 const partTwoReducer = (memo: number, line: string) => {
-  return memo
+  const numbers = recursive('', line.split(''))
+
+  const firstNumber = numbers[0]
+  const lastNumber = numbers[numbers.length - 1]
+
+  return memo + Number(`${firstNumber}${lastNumber}`)
 }
 
-const solvePartOne = (lines: string[]): number =>
-  lines.reduce(partOneReducer, 0)
-
-const solvePartTwo = (lines: string[]): number =>
-  lines.reduce(partTwoReducer, 0)
+const solve = (
+  lines: string[],
+  reducer: (memo: number, line: string) => number,
+): number => lines.reduce(reducer, 0)
 
 export default () => {
   const lines = getInputData()
 
-  const answerPartOne = solvePartOne(lines)
-  const answerPartTwo = solvePartTwo(lines)
+  const answerPartOne = solve(lines, partOneReducer)
+  const answerPartTwo = solve(lines, partTwoReducer)
 
   printResult(answerPartOne, 2023, 1, 1)
   printResult(answerPartTwo, 2023, 1, 2)

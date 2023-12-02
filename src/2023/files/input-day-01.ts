@@ -998,8 +998,3 @@ cnktjkjmcg46fiverxlxkmxvkmnklsfive
 sevenfourfour99seven8
 ktgfiveone76ghj
 7zgzsevenftkdfour186`
-
-export const example = `1abc2
-pqr3stu8vwx
-a1b2c3d4e5f
-treb7uchet`
