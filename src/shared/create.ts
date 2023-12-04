@@ -16,6 +16,11 @@ const [, , date] = process.argv
  *            - If no:: exit
  */
 
+const isValidFormat = (inputString: string) => {
+  const regex = /^\d{4}-\d{2}$/
+  return regex.test(inputString)
+}
+
 async function checkIfFileExists(filePath: string, fileName: string) {
   console.info(`Checking if file exists::(${filePath}/${fileName})::`)
   try {
@@ -105,6 +110,13 @@ export default () => {
 }
 
 ;(async () => {
+  if (!isValidFormat(date)) {
+    console.error(
+      'Invalid date format::(YYYY-MM)::\nPlease enter a valid date in the format::(YYYY-MM)::',
+    )
+    return
+  }
+
   const [year, day] = date.split('-')
   console.info(`Starting creating files for::(${year}-${day})::\n`)
 
