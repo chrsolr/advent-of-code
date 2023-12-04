@@ -1,5 +1,7 @@
-import { promises as fs } from 'fs'
+import sync, { promises as fs } from 'fs'
 import path from 'path'
+
+type ErrorType = { code: string | unknown }
 
 const [, , date] = process.argv
 
@@ -14,24 +16,67 @@ const [, , date] = process.argv
  *            - If no:: exit
  */
 
-;(async () => {
-  const [year, day] = date.split('-')
-  console.info(`Creating files for ${year}-${day}...`)
+async function checkIfFileExists(filePath: string, fileName: string) {
+  console.info(`Checking if file exists::(${filePath}/${fileName})::`)
+  try {
+    await fs.access(`${filePath}/${fileName}`, fs.constants.F_OK)
+    console.info(`File already exists::(${filePath}/${fileName})::`)
+    return true
+  } catch (err) {
+    console.info(`File does not exist::(${filePath}/${fileName})::`)
+    return false
+  }
+}
 
-  // Create input file
-  const inputDestinationLocation = `../${year}/files/input-day-${day}.ts`
-  const codeDestinationLocation = `../${year}/day-${day}.ts`
+async function createDirectoryIfNotExists(directoryPath: string) {
+  try {
+    console.info(`Creating directory::(${directoryPath})::`)
+    await fs.mkdir(directoryPath, { recursive: true })
+  } catch (err) {
+    console.info(`Error creating directory::(${directoryPath})::`)
+    const { code } = err as ErrorType
+    if (code !== 'EEXIST') {
+      throw err
+    }
+  }
+}
 
-  console.info(`input...`)
-  await fs.writeFile(
-    path.resolve(__dirname, inputDestinationLocation),
-    `export default \`\`\n`,
-  )
+async function createFileWithDirectory(
+  filePath: string,
+  fileName: string,
+  fileContent: string,
+) {
+  try {
+    await createDirectoryIfNotExists(filePath)
 
-  console.info(`code...`)
-  await fs.writeFile(
-    path.resolve(__dirname, codeDestinationLocation),
-    `import input from './files/input-day-${day}'
+    console.info(`Creating file::(${filePath}/${fileName})::`)
+
+    const fileExists = await checkIfFileExists(filePath, fileName)
+    if (fileExists) {
+      return
+    }
+
+    await fs.writeFile(`${filePath}/${fileName}`, fileContent)
+    console.info(`File created::(${filePath}/${fileName})::`)
+  } catch (err) {
+    console.error('Error creating file::', err)
+  }
+}
+
+async function createInputFile(year: string, day: string) {
+  const filePath = path.resolve(__dirname, `../${year}/files`)
+  const fileName = `input-day-${day}.ts`
+  const fileContent = `export default \`\`\n`
+
+  await createFileWithDirectory(filePath, fileName, fileContent)
+
+  console.info(`Input File Location::(${filePath}/${fileName})::\n`)
+}
+
+async function createInputCode(year: string, day: string) {
+  const filePath = path.resolve(__dirname, `../${year}`)
+  const fileName = `day-${day}.ts`
+  const fileContent = `import input from './files/input-day-${day}'
 import { printResult } from '../shared/utils'
 
 const getInputData = (): string[] => input.split('\\n')
@@ -53,8 +98,18 @@ export default () => {
   printResult(answerPartOne, ${year}, ${Number(day)}, 1)
   printResult(answerPartTwo, ${year}, ${Number(day)}, 2)
 }
-`,
-  )
+`
+  await createFileWithDirectory(filePath, fileName, fileContent)
 
-  console.info(`done!!`)
+  console.info(`Source Code File Location::(${filePath}/${fileName})::\n`)
+}
+
+;(async () => {
+  const [year, day] = date.split('-')
+  console.info(`Starting files creation for::(${year}-${day})::\n`)
+
+  await createInputFile(year, day)
+  await createInputCode(year, day)
+
+  console.info(`Finished creating files for::(${year}-${day})::`)
 })()

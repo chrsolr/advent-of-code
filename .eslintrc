@@ -21,6 +21,7 @@
     "jest.config.js"
   ],
   "rules": {
+    "no-useless-catch": "off",
     "no-constant-condition": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",
