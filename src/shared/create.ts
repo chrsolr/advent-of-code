@@ -106,7 +106,7 @@ export default () => {
 
 ;(async () => {
   const [year, day] = date.split('-')
-  console.info(`Starting files creation for::(${year}-${day})::\n`)
+  console.info(`Starting creating files for::(${year}-${day})::\n`)
 
   await createInputFile(year, day)
   await createInputCode(year, day)
