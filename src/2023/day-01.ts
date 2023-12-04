@@ -38,30 +38,33 @@ const calculatePartTwo = (line: string[]): string[] => {
     }
   }
 
-  return memo
+  return [memo[0], memo[memo.length - 1]]
 }
 
 const partOneReducer = (memo: number, line: string) => {
-  const numbers = []
+  const length = line.length
+  let firstNumber = ''
+  let lastNumber = ''
 
-  for (const char of line) {
-    if (!isNaN(Number(char))) {
-      numbers[numbers.length ? 1 : 0] = char
+  for (let i = 0; i < length; i++) {
+    if (!isNaN(Number(line[i]))) {
+      firstNumber = line[i]
+      break
     }
   }
 
-  const firstNumber = numbers[0]
-  const lastNumber = numbers[numbers.length - 1]
+  for (let i = length - 1; i >= 0; i--) {
+    if (!isNaN(Number(line[i]))) {
+      lastNumber = line[i]
+      break
+    }
+  }
 
   return memo + Number(`${firstNumber}${lastNumber}`)
 }
 
 const partTwoReducer = (memo: number, line: string) => {
-  const numbers = calculatePartTwo(line.split(''))
-
-  const firstNumber = numbers[0]
-  const lastNumber = numbers[numbers.length - 1]
-
+  const [firstNumber, lastNumber] = calculatePartTwo(line.split(''))
   return memo + Number(`${firstNumber}${lastNumber}`)
 }
 
