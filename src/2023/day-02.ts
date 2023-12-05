@@ -36,9 +36,9 @@ const partOneReducer = (line: string) => {
 const partTwoReducer = (line: string) => {
   const captures = line.match(/(Game [0-9]+: )|([^;]*)/g) || []
   const [, ...sets] = captures.filter((v) => v).map((v) => v.trim())
-  let red = 0
-  let blue = 0
-  let green = 0
+  let red = 0,
+    blue = 0,
+    green = 0
 
   for (const set of sets) {
     const cubes = set.split(', ')
@@ -49,11 +49,9 @@ const partTwoReducer = (line: string) => {
 
       if (color === 'red') {
         red = num > red ? num : red
-      }
-      if (color === 'blue') {
+      } else if (color === 'blue') {
         blue = num > blue ? num : blue
-      }
-      if (color === 'green') {
+      } else if (color === 'green') {
         green = num > green ? num : green
       }
     }
