@@ -29,3 +29,14 @@
 | ---- | --- | ---------------------------------- | ------------------------------------------- | ------------------- |
 | 2023 | 01  | [Typescript](./src/2023/day-01.ts) | [Link](https://adventofcode.com/2023/day/1) | `npm start 2023-01` |
 | 2023 | 02  | [Typescript](./src/2023/day-02.ts) | [Link](https://adventofcode.com/2023/day/2) | `npm start 2023-02` |
+
+---
+
+## How to create initial files
+
+Run command: `npm run create YYYY-DD`
+
+The below files will be created:
+
+- src/{YYYY}/files/input-day-{DD}.ts
+- src/{YYYY}/day-{DD}.ts
