@@ -35,8 +35,9 @@ const [, , challenge] = process.argv
     .set('2023-03', _2023_03)
 
   if (!challenge) {
-    // TODO: run all
-    return
+    for (const [key] of map) {
+      map.get(key)!()
+    }
   }
 
   if (map.has(challenge)) {
