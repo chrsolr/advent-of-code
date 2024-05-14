@@ -2,10 +2,45 @@ import input, { example } from './files/input-day-03'
 import { printResult } from '../shared/utils'
 
 const getInputData = (): string[] =>
-  (example || input).split('\n').filter((line) => line)
+  (example || input)
+    .split('\n')
+    .filter((line) => line)
+    .slice(0, 1)
+
+const isNumber = (character: string) => !isNaN(+character)
+
+const createMap = (lines: string[]) => {
+  const map = []
+
+  for (const line of lines) {
+    let digits = ''
+    let coords = []
+
+    let x = 0
+    let y = 0
+
+    for (const char of line) {
+      if (isNumber(char)) {
+        digits += char
+        coords.push(`${x},${y}`)
+      } else {
+        map.push({
+          digits,
+          coords,
+        })
+        digits = ''
+      }
+      x++
+    }
+
+    y++
+
+    console.log(map)
+  }
+}
 
 const solvePartOne = (lines: string[]) => {
-  console.log(example)
+  const map = createMap(lines)
 
   return lines.length
 }

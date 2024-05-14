@@ -1,41 +1,37 @@
 import input, { examples } from './files/input-day-01'
 import { printResult } from '../shared/utils'
 
-const index = 2
+enum Cardinal {
+  N = 'N',
+  E = 'E',
+  S = 'S',
+  W = 'W',
+}
 
 const getInputData = (): string[] =>
-  // (examples[index].input || input).trim().split(', ')
-  input.trim().split(', ')
+  (examples[0].input || input).trim().split(', ')
 
 const solvePartOne = (moves: string[]): number => {
-  const coords = { x: 0, y: 0 }
+  const x = 0
+  const y = 0
 
-  for (let i = 0; i < moves.length; i++) {
-    const isEven = i % 2 === 0
-    const [direction, ...rest] = moves[i]
-    const moveAmount = Number(rest.join(''))
-
-    console.log({ direction, moveAmount })
-
-    if (isEven && direction === 'R') {
-      coords.x += moveAmount
-    }
-
-    if (isEven && direction === 'L') {
-      coords.x -= moveAmount
-    }
-
-    if (!isEven && direction === 'R') {
-      coords.y -= moveAmount
-    }
-
-    if (!isEven && direction === 'L') {
-      coords.y += moveAmount
-    }
+  function turnLeft() {
+    return 0
   }
 
-  console.log('Coordinates:', `(${coords.x},${coords.y})`)
-  return coords.x + coords.y
+  function turnRight() {
+    return 0
+  }
+
+  for (const move of moves) {
+    const [direction, ...rest] = move
+    const amount = Number(rest.join(''))
+    const unknown = direction === 'R' ? turnRight() : turnLeft()
+
+    console.log('Current:', `${direction}${amount} - (${x},${y}) - ${unknown}`)
+  }
+
+  return Math.abs(x) + Math.abs(y)
 }
 
 const solvePartTwo = (chars: string[]): number => {
