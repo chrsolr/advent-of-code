@@ -5,7 +5,7 @@ const getInputData = (): string[] =>
   (example || input)
     .split('\n')
     .filter((line) => line)
-    .slice(0, 1)
+    .slice(0, 2)
 
 const isNumber = (character: string) => !isNaN(+character)
 
@@ -20,22 +20,25 @@ const createMap = (lines: string[]) => {
     let y = 0
 
     for (const char of line) {
-      if (isNumber(char)) {
+      if (isNumber(char) && isNumber(line[x + 1])) {
         digits += char
         coords.push(`${x},${y}`)
-      } else {
+      } else if (isNumber(char) && !isNumber(line[x + 1])) {
+        digits += char
+        coords.push(`${x},${y}`)
+
         map.push({
           digits,
           coords,
         })
+      } else {
+        coords = []
         digits = ''
       }
       x++
     }
 
     y++
-
-    console.log(map)
   }
 }
 
