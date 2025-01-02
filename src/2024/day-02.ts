@@ -3,39 +3,69 @@ import { printResult } from '../shared/utils'
 
 const getInputData = (): string[] => input.split('\n')
 
+const checkIfSafe = (levels: number[]): boolean => {
+  let isPositiveDirection = null
+
+  for (let i = 1; i < levels.length; i++) {
+    const previous = levels[i - 1]
+    const current = levels[i]
+
+    if (previous === current) {
+      return false
+    }
+
+    const currentDirection = previous >= current ? 'DOWN' : 'UP'
+    if (isPositiveDirection === null) {
+      isPositiveDirection = currentDirection
+    } else if (isPositiveDirection !== currentDirection) {
+      return false
+    }
+
+    const diff = Math.abs(previous - current)
+    if (diff < 1 || diff > 3) {
+      return false
+    }
+  }
+
+  return true
+}
+
 const solvePartOne = (lines: string[]) => {
   let amountOfSafeReports = 0
 
   for (const line of lines) {
     const items = line.split(' ').filter(Boolean).map(Number)
 
-    let isSafe = true
-    let direction = null
+    const isSafe = checkIfSafe(items)
+
+    if (isSafe) {
+      ++amountOfSafeReports
+    }
+  }
+
+  return amountOfSafeReports
+}
+
+const solvePartTwo = (lines: string[]) => {
+  let amountOfSafeReports = 0
+
+  for (const line of lines) {
+    const items = line.split(' ').filter(Boolean).map(Number)
+
+    let isSafe = checkIfSafe(items)
+
+    if (isSafe) {
+      ++amountOfSafeReports
+      continue
+    }
 
     for (let i = 0; i < items.length; i++) {
-      const current = items[i]
-      const next = items[i + 1]
+      const subArray = items.toSpliced(i, 1)
+      const checked = checkIfSafe(subArray)
 
-      if (current === undefined || next === undefined) {
-        continue
-      }
-
-      if (isSafe === false) {
-        break
-      }
-
-      const currentDirection = current >= next ? 'DOWN' : 'UP'
-      if (direction === null) {
-        direction = currentDirection
-      } else if (direction !== currentDirection) {
-        isSafe = false
-        break
-      }
-
-      if (Math.abs(current - next) >= 1 && Math.abs(current - next) <= 3) {
+      if (checked) {
         isSafe = true
-      } else {
-        isSafe = false
+        break
       }
     }
 
@@ -47,16 +77,12 @@ const solvePartOne = (lines: string[]) => {
   return amountOfSafeReports
 }
 
-const solvePartTwo = (lines: string[]) => {
-  return lines.length
-}
-
 export default () => {
   const lines = getInputData()
 
   const answerPartOne = solvePartOne(lines)
-  // const answerPartTwo = solvePartTwo(lines)
+  const answerPartTwo = solvePartTwo(lines)
 
   printResult(answerPartOne, 2024, 2, 1)
-  // printResult(answerPartTwo, 2024, 2, 2)
+  printResult(answerPartTwo, 2024, 2, 2)
 }
