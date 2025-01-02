@@ -18,6 +18,7 @@ import _2023_02 from './2023/day-02'
 import _2023_03 from './2023/day-03'
 
 import _2024_01 from './2024/day-01'
+import _2024_02 from './2024/day-02'
 
 const [, , challenge] = process.argv
 
@@ -39,6 +40,7 @@ const [, , challenge] = process.argv
     .set('2023-02', _2023_02)
     .set('2023-03', _2023_03)
     .set('2024-01', _2024_01)
+    .set('2024-02', _2024_02)
 
   if (!challenge) {
     for (const [key] of map) {
