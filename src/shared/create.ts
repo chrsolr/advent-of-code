@@ -71,7 +71,9 @@ async function createFileWithDirectory(
 async function createInputFile(year: string, day: string) {
   const filePath = path.resolve(__dirname, `../${year}/files`)
   const fileName = `input-day-${day}.ts`
-  const fileContent = `export default \`\`\n`
+  const fileContent = `export const test = \`\`
+
+export const input = \`\`\n`
 
   await createFileWithDirectory(filePath, fileName, fileContent)
 
@@ -81,10 +83,10 @@ async function createInputFile(year: string, day: string) {
 async function createInputCode(year: string, day: string) {
   const filePath = path.resolve(__dirname, `../${year}`)
   const fileName = `day-${day}.ts`
-  const fileContent = `import input from './files/input-day-${day}'
+  const fileContent = `import { input, test } from './files/input-day-${day}'
 import { printResult } from '../shared/utils'
 
-const getInputData = (): string[] => input.split('\\n')
+const getInputData = (): string[] => test.split('\\n')
 
 const solvePartOne = (lines: string[]) => {
   return lines.length
