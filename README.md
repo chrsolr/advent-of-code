@@ -35,6 +35,8 @@
 | Year | Day | Code                               | Challenge                                   | Run Script          |
 | ---- | --- | ---------------------------------- | ------------------------------------------- | ------------------- |
 | 2024 | 01  | [Typescript](./src/2024/day-01.ts) | [Link](https://adventofcode.com/2024/day/1) | `npm start 2024-01` |
+| 2024 | 02  | [Typescript](./src/2024/day-02.ts) | [Link](https://adventofcode.com/2024/day/2) | `npm start 2024-02` |
+| 2024 | 03  | [Typescript](./src/2024/day-03.ts) | [Link](https://adventofcode.com/2024/day/3) | `npm start 2024-03` |
 
 ---
 
