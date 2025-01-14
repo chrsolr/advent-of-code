@@ -1,8 +1,4 @@
-/**
- * Day 01
- * Instructions: https://adventofcode.com/2015/day/1
- */
-internal class _2015_Day01
+public class _2015_01
 {
     private int calculateFloor(List<char> chars) =>
         chars.Aggregate(0, (memo, current) => memo += current == '(' ? 1 : -1);

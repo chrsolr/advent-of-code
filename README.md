@@ -44,17 +44,6 @@
 
 ---
 
-## How to create initial typescript files
-
-Run command: `npm run create YYYY-DD`
-
-The below files will be created:
-
-- src/{YYYY}/files/input-day-{DD}.ts
-- src/{YYYY}/day-{DD}.ts
-
----
-
 ### Run C# Scripts
 
 #### AoC - 2015
@@ -62,3 +51,20 @@ The below files will be created:
 | Year | Day | Code                               | Challenge                                   | Run Script          |
 | ---- | --- | ---------------------------------- | ------------------------------------------- | ------------------- |
 | 2015 | 01  | [C#](./csharp/2015/day-01.cs) | [Link](https://adventofcode.com/2015/day/1) | `dotnet run --project ./csharp 2015-01` |
+
+---
+
+## How to create initial files
+
+Run command:
+
+```shell
+# LANG (ts|js, cs|csharp)
+npm run create LANG YYYY-DD
+```
+
+The below files will be created:
+
+- {lang}/src/{YYYY}/files/input-day-{DD}.(ts|cs)
+- {lang}/src/{YYYY}/day-{DD}.(ts|cs)
+- files/{YYYY}

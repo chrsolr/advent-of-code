@@ -1,9 +1,9 @@
-import sync, { promises as fs } from 'fs'
+import { promises as fs } from 'fs'
 import path from 'path'
 
 type ErrorType = { code: string | unknown }
 
-const [, , date] = process.argv
+const [, , lang, date] = process.argv
 
 /**
  * TODO:
@@ -68,7 +68,7 @@ async function createFileWithDirectory(
   }
 }
 
-async function createInputFile(year: string, day: string) {
+async function createTypescriptInputFile(year: string, day: string) {
   const filePath = path.resolve(__dirname, `../${year}/files`)
   const fileName = `input-day-${day}.ts`
   const fileContent = `export const test = \`\`
@@ -80,7 +80,7 @@ export const input = \`\`\n`
   console.info(`Input File Location::(${filePath}/${fileName})::\n`)
 }
 
-async function createInputCode(year: string, day: string) {
+async function createTypescriptInputCode(year: string, day: string) {
   const filePath = path.resolve(__dirname, `../${year}`)
   const fileName = `day-${day}.ts`
   const fileContent = `import { input, test } from './files/input-day-${day}'
@@ -111,7 +111,59 @@ export default () => {
   console.info(`Source Code File Location::(${filePath}/${fileName})::\n`)
 }
 
+async function createCSharpInputFile(year: string, day: string) {
+  const filePath = path.resolve(__dirname, `../../../files/${year}`)
+  const fileName = `${year}-${day}`
+  const fileContent = 'REPLACE WITH CONTENT'
+
+  await createFileWithDirectory(filePath, fileName, fileContent)
+
+  console.info(`Input File Location::(${filePath}/${fileName})::\n`)
+}
+
+async function createCSharpInputCode(year: string, day: string) {
+  const filePath = path.resolve(__dirname, `../../../csharp/${year}`)
+  const fileName = `day-${day}.cs`
+  const fileContent = ` public class _${year}_${day}
+{
+
+    private int SolvePartOne(List<string> lines)
+    {
+        return 0;
+    }
+
+    private int SolvePartTwo(List<string> lines)
+    {
+        return 0;
+    }
+
+    public void runAsync()
+    {
+        const string inputFileDate = "${year}-${day}";
+
+        var lines = FileUtils.GetInputData(inputFileDate);
+
+        if (lines.Count <= 0)
+        {
+            Console.WriteLine("No input data found for this day");
+            return;
+        }
+
+        var answerPartOne = SolvePartOne(lines);
+        var answerPartTwo = SolvePartTwo(lines);
+
+        Utils.PrintResult(answerPartOne, 2015, 2, 1);
+        Utils.PrintResult(answerPartOne, 2015, 2, 2);
+    }
+}`
+  await createFileWithDirectory(filePath, fileName, fileContent)
+
+  console.info(`Source Code File Location::(${filePath}/${fileName})::\n`)
+}
+
 ;(async () => {
+  console.log('LANG:', lang)
+
   if (!isValidFormat(date)) {
     console.error(
       'Invalid date format::(YYYY-MM)::\nPlease enter a valid date in the format::(YYYY-MM)::',
@@ -119,11 +171,28 @@ export default () => {
     return
   }
 
-  const [year, day] = date.split('-')
-  console.info(`Starting creating files for::(${year}-${day})::\n`)
+  if (!isValidFormat(date)) {
+    console.error(
+      'Invalid date format::(YYYY-MM)::\nPlease enter a valid date in the format::(YYYY-MM)::',
+    )
+    return
+  }
 
-  await createInputFile(year, day)
-  await createInputCode(year, day)
+  if (lang === 'ts' || lang === 'js') {
+    const [year, day] = date.split('-')
+    console.info(`Starting creating files for::(${year}-${day})::\n`)
 
-  console.info(`Finished creating files for::(${year}-${day})::`)
+    await createTypescriptInputFile(year, day)
+    await createTypescriptInputCode(year, day)
+
+    console.info(`Finished creating files for::(${year}-${day})::`)
+  }
+
+  if (lang === 'cs' || lang === 'csharp') {
+    const [year, day] = date.split('-')
+    console.info(`Starting creating files for::(${year}-${day})::\n`)
+
+    await createCSharpInputFile(year, day)
+    await createCSharpInputCode(year, day)
+  }
 })()

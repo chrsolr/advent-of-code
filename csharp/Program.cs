@@ -1,9 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-var map = new Dictionary<string, Action>
-{
-    { "2015-01", () => new _2015_Day01().runAsync() },
-};
+var map = new Dictionary<string, Action> { { "2015-01", () => new _2015_01().runAsync() } };
 
 if (args.Length <= 0)
 {

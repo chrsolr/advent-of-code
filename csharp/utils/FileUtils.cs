@@ -2,7 +2,8 @@ public class FileUtils
 {
     public static List<string> GetInputData(string date)
     {
-        return FileUtils.ReadFileLineByLine($"../files/{date}");
+        var splited = date.Split('-');
+        return FileUtils.ReadFileLineByLine($"../files/{splited.First()}/{date}");
     }
 
     public static List<string> ReadFileLineByLine(string filepath)
