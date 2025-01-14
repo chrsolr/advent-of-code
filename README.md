@@ -65,6 +65,12 @@ npm run create LANG YYYY-DD
 
 The below files will be created:
 
-- {lang}/src/{YYYY}/files/input-day-{DD}.(ts|cs)
-- {lang}/src/{YYYY}/day-{DD}.(ts|cs)
-- files/{YYYY}
+For Typescript:
+
+- {lang}/src/{YYYY}/files/input-day-{DD}.ts
+- {lang}/src/{YYYY}/day-{DD}.ts
+
+For C#:
+
+- csharp/{YYYY}/day-{DD}.cs
+- files/{YYYY}/{YYYY-DD}
