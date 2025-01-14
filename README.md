@@ -52,3 +52,13 @@ The below files will be created:
 
 - src/{YYYY}/files/input-day-{DD}.ts
 - src/{YYYY}/day-{DD}.ts
+
+---
+
+### Run C# Scripts
+
+#### AoC - 2015
+
+| Year | Day | Code                               | Challenge                                   | Run Script          |
+| ---- | --- | ---------------------------------- | ------------------------------------------- | ------------------- |
+| 2015 | 01  | [C#](./csharp/2015/day-01.cs) | [Link](https://adventofcode.com/2015/day/1) | `dotnet run --project ./csharp 2015-01` |

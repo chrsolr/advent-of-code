@@ -1,6 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-if (args.Length > 0)
+﻿if (args.Length > 0)
 {
     foreach (var arg in args)
     {
@@ -9,10 +7,10 @@ if (args.Length > 0)
 }
 else
 {
-    Console.WriteLine("No arguments");
+    Console.WriteLine(
+        "No arguments provided. Please provide a year and day as arguments in the format of 'YYYY-DD'."
+    );
 }
-
-await Task.Delay(5000);
 
 Console.WriteLine("Hello, World!");
 
