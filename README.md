@@ -51,6 +51,7 @@
 | Year | Day | Code                               | Challenge                                   | Run Script          |
 | ---- | --- | ---------------------------------- | ------------------------------------------- | ------------------- |
 | 2015 | 01  | [C#](./csharp/2015/day-01.cs) | [Link](https://adventofcode.com/2015/day/1) | `dotnet run --project ./csharp 2015-01` |
+| 2015 | 02  | [C#](./csharp/2015/day-02.cs) | [Link](https://adventofcode.com/2015/day/2) | `dotnet run --project ./csharp 2015-02` |
 
 ---
 
