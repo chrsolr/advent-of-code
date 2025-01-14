@@ -2,7 +2,7 @@
 
 var map = new Dictionary<string, Action>
 {
-    { "2015-01", () => new _2015_Day01().run() },
+    { "2015-01", () => new _2015_Day01().runAsync() },
 };
 
 if (args.Length <= 0)
@@ -24,6 +24,8 @@ if (map.ContainsKey(date) == false)
 }
 
 Console.WriteLine($"Date argument: {date}");
+
+map[date]();
 
 Console.WriteLine("***************************************************");
 
