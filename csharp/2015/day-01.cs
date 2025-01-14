@@ -27,7 +27,7 @@ public class _2015_01
         return calculatePosition(inputData);
     }
 
-    public void runAsync()
+    public void run()
     {
         const string inputFileDate = "2015-01";
 

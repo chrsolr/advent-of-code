@@ -59,7 +59,7 @@ public class _2015_02
             }
         );
 
-    public void runAsync()
+    public void run()
     {
         const string inputFileDate = "2015-02";
 
