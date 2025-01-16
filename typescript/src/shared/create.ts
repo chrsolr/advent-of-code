@@ -152,8 +152,8 @@ async function createCSharpInputCode(year: string, day: string) {
         var answerPartOne = SolvePartOne(lines);
         var answerPartTwo = SolvePartTwo(lines);
 
-        Utils.PrintResult(answerPartOne, 2015, 2, 1);
-        Utils.PrintResult(answerPartOne, 2015, 2, 2);
+        Utils.PrintResult(answerPartOne, ${year}, ${Number(day)}, 1);
+        Utils.PrintResult(answerPartTwo, ${year}, ${Number(day)}, 2);
     }
 }`
   await createFileWithDirectory(filePath, fileName, fileContent)
