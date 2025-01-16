@@ -137,7 +137,7 @@ async function createCSharpInputCode(year: string, day: string) {
         return 0;
     }
 
-    public void runAsync()
+    public void run()
     {
         const string inputFileDate = "${year}-${day}";
 
