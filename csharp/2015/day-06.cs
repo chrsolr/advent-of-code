@@ -1,35 +1,28 @@
+class Instructions
+{
+    public string Action { get; set; }
+    public string Direction { get; set; }
+    public string From { get; set; }
+    public string To { get; set; }
+}
+
 public class _2015_06
 {
-    public bool[,] CreateMatrix(
-        int gridRowAmount = 1000,
-        int gridColAmount = 1000,
-        bool value = false
-    )
+    public T[][] CreateMatrix<T>(int gridRowAmount, int gridColAmount, T value)
     {
-        // var grid = Enumerable
-        //     .Range(0, gridRowAmount)
-        //     .Select(_ => Enumerable.Repeat(value, gridColAmount).ToArray())
-        //     .ToArray();
-
-        var grid = new bool[gridRowAmount, gridColAmount];
-        for (int i = 0; i < gridRowAmount; i++)
-        {
-            for (int j = 0; j < gridColAmount; j++)
-            {
-                grid[i, j] = value;
-            }
-        }
-
-        return grid;
+        return Enumerable
+            .Range(0, gridRowAmount)
+            .Select(_ => Enumerable.Repeat(value, gridColAmount).ToArray())
+            .ToArray();
     }
 
-    private dynamic GetInstructions(string line)
+    private Instructions GetInstructions(string line)
     {
         string[] instructions = line.Split(' ');
 
         if (instructions.Length == 5)
         {
-            return new
+            return new Instructions
             {
                 Action = instructions[0],
                 Direction = instructions[1],
@@ -38,7 +31,7 @@ public class _2015_06
             };
         }
 
-        return new
+        return new Instructions
         {
             Action = instructions[0],
             Direction = "N/A",
@@ -51,9 +44,9 @@ public class _2015_06
     {
         int count = 0;
 
-        bool[,] matrix = new bool[gridRowAmount, gridColAmount];
+        bool[][] matrix = CreateMatrix<bool>(gridRowAmount, gridColAmount, false);
 
-        foreach (var line in lines)
+        foreach (string line in lines)
         {
             var instructions = GetInstructions(line);
             var action = instructions.Action;
@@ -61,33 +54,33 @@ public class _2015_06
             var from = instructions.From;
             var to = instructions.To;
 
-            var f = ((string)from).Split(',').Select(v => int.Parse(v)).ToArray();
-            var t = ((string)to).Split(',').Select(v => int.Parse(v)).ToArray();
+            var fromCoords = ((string)from).Split(',').Select(v => int.Parse(v)).ToArray();
+            var toCoords = ((string)to).Split(',').Select(v => int.Parse(v)).ToArray();
 
-            (int xf, int yf) = (f[0], f[1]);
-            (int xt, int yt) = (t[0], t[1]);
+            (int fromX, int fromY) = (fromCoords[0], fromCoords[1]);
+            (int toX, int toY) = (toCoords[0], toCoords[1]);
 
-            for (int row = xf; row <= xt; row++)
+            for (int row = fromX; row <= toX; row++)
             {
-                for (int col = yt; col <= yt; col++)
+                for (int col = fromY; col <= toY; col++)
                 {
-                    var isLightTurnedOn = matrix[row, col];
+                    var isLightTurnedOn = matrix[row][col];
                     if (action == "toggle")
                     {
-                        matrix[row, col] = !isLightTurnedOn;
+                        matrix[row][col] = !isLightTurnedOn;
                         count += !isLightTurnedOn ? 1 : -1;
                         continue;
                     }
 
                     if (!isLightTurnedOn && direction == "on")
                     {
-                        matrix[row, col] = true;
+                        matrix[row][col] = true;
                         count++;
                         continue;
                     }
                     if (isLightTurnedOn && direction == "off")
                     {
-                        matrix[row, col] = false;
+                        matrix[row][col] = false;
                         count--;
                     }
                 }
@@ -97,9 +90,53 @@ public class _2015_06
         return count;
     }
 
-    private int SolvePartTwo(List<string> lines)
+    private int SolvePartTwo(List<string> lines, int gridRowAmount = 1000, int gridColAmount = 1000)
     {
-        return 0;
+        int[][] matrix = CreateMatrix<int>(gridRowAmount, gridColAmount, 0);
+
+        foreach (string line in lines)
+        {
+            var instructions = GetInstructions(line);
+            var action = instructions.Action;
+            var direction = instructions.Direction;
+            var from = instructions.From;
+            var to = instructions.To;
+
+            var fromCoords = ((string)from).Split(',').Select(v => int.Parse(v)).ToArray();
+            var toCoords = ((string)to).Split(',').Select(v => int.Parse(v)).ToArray();
+
+            (int fromX, int fromY) = (fromCoords[0], fromCoords[1]);
+            (int toX, int toY) = (toCoords[0], toCoords[1]);
+
+            for (int row = fromX; row <= toX; row++)
+            {
+                for (int col = fromY; col <= toY; col++)
+                {
+                    var currentBrightness = matrix[row][col];
+
+                    if (action == "toggle")
+                    {
+                        matrix[row][col] = 2 + currentBrightness;
+                    }
+
+                    if (direction == "on")
+                    {
+                        matrix[row][col] += 1;
+                    }
+
+                    if (direction == "off" && currentBrightness > 0)
+                    {
+                        matrix[row][col] -= 1;
+                    }
+                }
+            }
+        }
+
+        return matrix.Aggregate(
+            0,
+            (rowTotal, rowValues) =>
+                rowTotal + rowValues.Aggregate(0, (colsTotal, colsValues) => colsTotal + colsValues)
+        );
     }
 
     public void run()
@@ -121,4 +158,3 @@ public class _2015_06
         Utils.PrintResult(answerPartTwo, 2015, 6, 2);
     }
 }
-

@@ -55,6 +55,7 @@
 | 2015 | 03  | [C#](./csharp/2015/day-03.cs) | [Link](https://adventofcode.com/2015/day/3) | `dotnet run --project ./csharp 2015-03` |
 | 2015 | 04  | [C#](./csharp/2015/day-04.cs) | [Link](https://adventofcode.com/2015/day/4) | `dotnet run --project ./csharp 2015-04` |
 | 2015 | 05  | [C#](./csharp/2015/day-05.cs) | [Link](https://adventofcode.com/2015/day/5) | `dotnet run --project ./csharp 2015-05` |
+| 2015 | 06  | [C#](./csharp/2015/day-06.cs) | [Link](https://adventofcode.com/2015/day/6) | `dotnet run --project ./csharp 2015-06` |
 
 ---
 
