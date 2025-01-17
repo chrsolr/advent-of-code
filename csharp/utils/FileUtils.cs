@@ -2,24 +2,29 @@ public class FileUtils
 {
     public static List<string> GetInputData(string date)
     {
+        if (string.IsNullOrEmpty(date))
+            throw new ArgumentNullException(nameof(date));
+
         var splited = date.Split('-');
-        return FileUtils.ReadFileLineByLine($"../files/{splited.First()}/{date}");
+        if (!splited.Any())
+            throw new ArgumentException("Invalid date format", nameof(date));
+
+        return ReadFileLineByLine(Path.Combine("files", splited.First(), date));
     }
 
     public static List<string> ReadFileLineByLine(string filepath)
     {
-        var lines = new List<string>();
-
-        using (var reader = new StreamReader(filepath))
+        try
         {
-            string line;
-
-            while ((line = reader.ReadLine()) != null)
-            {
-                lines.Add(line);
-            }
+            return File.ReadLines(filepath).ToList();
         }
-
-        return lines;
+        catch (FileNotFoundException ex)
+        {
+            throw new FileNotFoundException($"Input file not found: {filepath}", ex);
+        }
+        catch (IOException ex)
+        {
+            throw new IOException($"Error reading file: {filepath}", ex);
+        }
     }
 }
