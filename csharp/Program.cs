@@ -7,6 +7,7 @@ var map = new Dictionary<string, Action>
     { "2015-03", () => new _2015_03().run() },
     { "2015-04", () => new _2015_04().run() },
     { "2015-05", () => new _2015_05().run() },
+    { "2015-06", () => new _2015_06().run() },
 };
 
 if (args.Length <= 0)
