@@ -1,28 +1,32 @@
 import fs from 'fs'
-import readline from 'readline'
 import path from 'path'
 
-/**
- * @deprecated (Remove after 2022 is fully migrated to esm modules)
- */
-export async function readFileLineByLine(filepath: string) {
-  const fileStream = fs.createReadStream(filepath)
-  const lineReader = readline.createInterface({
-    input: fileStream,
-    crlfDelay: Infinity,
-  })
+function readFileLineByLine(filepath: string): string[] {
+  try {
+    return fs
+      .readFileSync(filepath, 'utf8')
+      .split('\n')
+      .map((line) => line.replace('\r', ''))
+      .filter((v) => v)
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      throw new Error(`Input file not found: ${filepath}`)
+    }
 
-  const lines = []
-  for await (const line of lineReader) {
-    lines.push(line)
+    throw new Error(`Error reading file: ${filepath}`)
   }
-
-  return lines
 }
 
-export async function getInputData(filePath: string): Promise<string[]> {
-  const filepath = path.join(__dirname, '../', filePath)
-  return readFileLineByLine(filepath)
+export function getInputData(date: string): string[] {
+  const splited = date.split('-')
+
+  if (!splited.length) {
+    throw new Error('Invalid date format')
+  }
+
+  return readFileLineByLine(
+    path.join(__dirname, '../../..', 'files', splited[0], date),
+  )
 }
 
 export function printResult(

@@ -1,12 +1,9 @@
-import input from './files/input-day-02'
-import { printResult } from '../shared/utils'
+import { getInputData, printResult } from '../shared/utils'
 
 /**
  * Day 02
  * Instructions: https://adventofcode.com/2015/day/2
  */
-
-const getInputData = (): string[] => input.split('\n').filter((v) => v)
 
 const getDimensions = (calculation: string): [number, number, number] =>
   calculation.split('x').map(Number) as [number, number, number]
@@ -43,7 +40,9 @@ const solve = (
 ): number => lines.reduce(reducer, 0)
 
 export default () => {
-  const inputData = getInputData()
+  const inputFileDate = '2015-02'
+
+  const inputData = getInputData(inputFileDate)
 
   const answerPartOne = solve(inputData, partOneReducer)
   const answerPartTwo = solve(inputData, partTwoReducer)

@@ -1,5 +1,4 @@
-import input from './files/input-day-03'
-import { printResult } from '../shared/utils'
+import { getInputData, printResult } from '../shared/utils'
 
 /**
  * Day 03
@@ -8,8 +7,6 @@ import { printResult } from '../shared/utils'
 
 type Direction = '^' | '>' | '<' | 'v'
 type Coordinates = [number, number]
-
-const getInputData = (): string => input.split('\n').filter((v) => v)[0]
 
 const updateCoordinates = (
   direction: Direction,
@@ -63,7 +60,9 @@ const solvePartTwo = (directions: Direction[]): number => {
 }
 
 export default () => {
-  const inputData = getInputData().split('') as Direction[]
+  const inputFileDate = '2015-03'
+
+  const inputData = getInputData(inputFileDate)[0].split('') as Direction[]
 
   const answerPartOne = solvePartOne(inputData)
   const answerPartTwo = solvePartTwo(inputData)

@@ -1,7 +1,4 @@
-import { printResult } from '../shared/utils'
-import input from './files/input-day-06'
-
-const lines = input.split('\n').filter((v) => v)
+import { getInputData, printResult } from '../shared/utils'
 
 const createMatrix = (
   gridRowAmount: number,
@@ -110,6 +107,9 @@ function solvePartTwo(
 }
 
 export default () => {
+  const inputFileDate = '2015-06'
+
+  const lines = getInputData(inputFileDate)
   const answerOne = solvePartOne(lines)
   const answerTwo = solvePartTwo(lines)
 

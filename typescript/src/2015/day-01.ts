@@ -1,5 +1,4 @@
-import { printResult } from '../shared/utils'
-import { getInputData } from '../shared/file-utils'
+import { getInputData, printResult } from '../shared/utils'
 
 /**
  * Day 01

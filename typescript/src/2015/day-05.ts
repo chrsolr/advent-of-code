@@ -1,5 +1,4 @@
-import input from './files/input-day-05'
-import { printResult } from '../shared/utils'
+import { getInputData, printResult } from '../shared/utils'
 
 /**
  * Day 05
@@ -9,7 +8,6 @@ import { printResult } from '../shared/utils'
 type Vowels = 'a' | 'e' | 'i' | 'o' | 'u'
 type Exclusion = 'ab' | 'cd' | 'pq' | 'xy'
 
-const lines = input.split('\n').filter((value) => value)
 const vowels: Record<string, Vowels> = {
   a: 'a',
   e: 'e',
@@ -83,6 +81,10 @@ const solve = (lines: string[], solver: (line: string) => boolean): number =>
   lines.reduce((memo, current) => (solver(current) ? memo + 1 : memo), 0)
 
 export default () => {
+  const inputFileDate = '2015-05'
+
+  const lines = getInputData(inputFileDate)
+
   const answerPartOne = solve(lines, partOneSolver)
   const answerPartTwo = solve(lines, partTwoSolver)
 
