@@ -1,9 +1,6 @@
-import input from './files/input-day-03'
-import { printResult } from '../shared/utils'
+import { getInputData, printResult } from '../shared/utils'
 
 type Alphabet = [string, number]
-
-const getInputData = (): string[] => input.trim().split('\n')
 
 const lowerAlphabet = Array.from({ length: 26 }, (_, i) => [
   String.fromCharCode(97 + i),
@@ -72,7 +69,9 @@ const solvePartTwo = (lines: string[]): number => {
 }
 
 export default () => {
-  const lines = getInputData()
+  const inputFileDate = '2022-03'
+
+  const lines = getInputData(inputFileDate)
 
   const answerPartOne = solvePartOne(lines)
   const answerPartTwo = solvePartTwo(lines)
