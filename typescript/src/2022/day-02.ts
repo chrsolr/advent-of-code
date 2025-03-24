@@ -1,5 +1,4 @@
-import input from './files/input-day-02'
-import { printResult } from '../shared/utils'
+import { getInputData, printResult } from '../shared/utils'
 
 type Moves = 'win' | 'draw' | 'lose'
 type Shapes = 'A' | 'B' | 'C' | 'X' | 'Y' | 'Z'
@@ -33,8 +32,6 @@ const mappings = {
     combinations: ['A Z', 'B X', 'C Y'],
   },
 }
-
-const getInputData = (): string[] => input.trim().split('\n')
 
 const solvePartOne = (lines: string[]): number =>
   lines.reduce((previousValue: number, currentValue: string) => {
@@ -89,7 +86,9 @@ const solvePartTwo = (lines: string[]): number =>
   }, 0)
 
 export default () => {
-  const lines = getInputData()
+  const inputFileDate = '2022-02'
+
+  const lines = getInputData(inputFileDate)
 
   const answerPartOne = solvePartOne(lines)
   const answerPartTwo = solvePartTwo(lines)

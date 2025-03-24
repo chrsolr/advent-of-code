@@ -5,6 +5,7 @@ function readFileLineByLine(filepath: string): string[] {
   try {
     return fs
       .readFileSync(filepath, 'utf8')
+      .trim()
       .split('\n')
       .map((line) => line.replace('\r', ''))
   } catch (error) {
