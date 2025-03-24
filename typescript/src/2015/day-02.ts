@@ -42,7 +42,7 @@ const solve = (
 export default () => {
   const inputFileDate = '2015-02'
 
-  const inputData = getInputData(inputFileDate)
+  const inputData = getInputData(inputFileDate).filter((v) => v)
 
   const answerPartOne = solve(inputData, partOneReducer)
   const answerPartTwo = solve(inputData, partTwoReducer)

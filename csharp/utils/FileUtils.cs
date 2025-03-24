@@ -9,7 +9,7 @@ public class FileUtils
         if (!splited.Any())
             throw new ArgumentException("Invalid date format", nameof(date));
 
-        return ReadFileLineByLine(Path.Combine("..", "files", splited.First(), date));
+        return ReadFileLineByLine(Path.Combine("files", splited.First(), date));
     }
 
     public static List<string> ReadFileLineByLine(string filepath)

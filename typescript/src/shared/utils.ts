@@ -7,7 +7,6 @@ function readFileLineByLine(filepath: string): string[] {
       .readFileSync(filepath, 'utf8')
       .split('\n')
       .map((line) => line.replace('\r', ''))
-      .filter((v) => v)
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
       throw new Error(`Input file not found: ${filepath}`)

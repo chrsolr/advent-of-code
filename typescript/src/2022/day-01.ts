@@ -1,12 +1,9 @@
-import input from './files/input-day-01'
-import { printResult } from '../shared/utils'
+import { getInputData, printResult } from '../shared/utils'
 
 /**
  * Day 01
  * Instructions: https://adventofcode.com/2022/day/1
  */
-
-const getInputData = (): number[] => input.trim().split('\n').map(Number)
 
 const findMaxSum = (
   numbers: number[],
@@ -42,7 +39,9 @@ const solveChallenge = (
 } => findMaxSum(numbers)
 
 export default () => {
-  const inputData = getInputData()
+  const inputFileDate = '2022-01'
+
+  const inputData = getInputData(inputFileDate).map(Number)
 
   const { maxGroupCalories, topThreeTotalCalories } = solveChallenge(inputData)
 

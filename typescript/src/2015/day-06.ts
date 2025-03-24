@@ -109,7 +109,8 @@ function solvePartTwo(
 export default () => {
   const inputFileDate = '2015-06'
 
-  const lines = getInputData(inputFileDate)
+  const lines = getInputData(inputFileDate).filter((v) => v)
+
   const answerOne = solvePartOne(lines)
   const answerTwo = solvePartTwo(lines)
 
