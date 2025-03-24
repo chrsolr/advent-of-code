@@ -1,7 +1,4 @@
-import input from './files/input-day-05'
-import { printResult } from '../shared/utils'
-
-const getInputData = (): string[] => input.trim().split('\n')
+import { getInputData, printResult } from '../shared/utils'
 
 function getStackAndOperations(arr: string[]) {
   const { stack, moves } = arr.reduce(
@@ -83,7 +80,9 @@ function solve(
 }
 
 export default () => {
-  const lines = getInputData()
+  const inputFileDate = '2022-05'
+
+  const lines = getInputData(inputFileDate)
 
   const { stack, operations } = getStackAndOperations(lines)
 

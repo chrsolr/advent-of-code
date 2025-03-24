@@ -1,7 +1,4 @@
-import input from './files/input-day-04'
-import { printResult } from '../shared/utils'
-
-const getInputData = (): string[] => input.trim().split('\n')
+import { getInputData, printResult } from '../shared/utils'
 
 const solvePartOne = (items: string[], range: number[]): number =>
   items.filter((item) => {
@@ -45,7 +42,9 @@ function getArrayOfNumbers(arr: string[]) {
 }
 
 export default () => {
-  const lines = getInputData()
+  const inputFileDate = '2022-04'
+
+  const lines = getInputData(inputFileDate)
 
   const answerPartOne = solvePartOne(lines, getArrayOfNumbers(lines))
   const answerPartTwo = solvePartTwo(lines, getArrayOfNumbers(lines))
