@@ -4,7 +4,7 @@
 
 ---
 
-### TypeScript Soluctions
+### TypeScript Solutions
 
 #### AoC - 2015
 
@@ -44,7 +44,7 @@
 
 ---
 
-### C# Soluctions
+### C# Solutions
 
 #### AoC - 2015
 
@@ -68,7 +68,7 @@ Run command:
 npm run create LANG YYYY-DD
 ```
 
-The below files will be created:
+The following files will be created:
 
 For Typescript:
 
