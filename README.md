@@ -4,7 +4,7 @@
 
 ---
 
-### Run TypeScript Scripts
+### TypeScript Soluctions
 
 #### AoC - 2015
 
@@ -44,7 +44,7 @@
 
 ---
 
-### Run C# Scripts
+### C# Soluctions
 
 #### AoC - 2015
 
