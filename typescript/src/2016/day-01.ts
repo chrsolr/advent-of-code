@@ -15,8 +15,6 @@ const solvePartOne = (moves: string[]): number => {
     const [direction, ...rest] = moves[i]
     const moveAmount = Number(rest.join(''))
 
-    console.log({ direction, moveAmount })
-
     if (isEven && direction === 'R') {
       coords.x += moveAmount
     }
@@ -34,7 +32,7 @@ const solvePartOne = (moves: string[]): number => {
     }
   }
 
-  console.log('Coordinates:', `(${coords.x},${coords.y})`)
+  // console.log('Coordinates:', `(${coords.x},${coords.y})`)
   return coords.x + coords.y
 }
 

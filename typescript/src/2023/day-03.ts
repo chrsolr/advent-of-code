@@ -5,8 +5,6 @@ const getInputData = (): string[] =>
   (example || input).split('\n').filter((line) => line)
 
 const solvePartOne = (lines: string[]) => {
-  console.log(example)
-
   return lines.length
 }
 
